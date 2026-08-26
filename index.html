@@ -108,6 +108,26 @@
     transition: opacity 0.6s ease;
     background: radial-gradient(circle 400px at var(--mx, 50%) var(--my, 50%), rgba(196,149,106,0.15) 0%, transparent 100%);
   }
+  .cursor-dot-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9991;
+    overflow: hidden;
+  }
+  .cursor-dot-pattern .pdot {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.1s;
+  }
   body:hover .cursor-spotlight { opacity: 1; }
   @media (pointer: coarse) {
     .cursor-dot, .cursor-ring, .cursor-spotlight { display: none; }
@@ -786,6 +806,7 @@
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0a0a09"/><text x="50" y="50" fill="#f7f6f4" font-family="sans-serif" font-size="26" font-weight="700" text-anchor="middle" dominant-baseline="central">DT</text><rect x="30" y="66" width="40" height="3" fill="#c4956a"/></svg></template>
 <!-- CURSOR -->
 <div class="cursor-spotlight" id="cursor-spotlight"></div>
+<div class="cursor-dot-pattern" id="cursor-dot-pattern"></div>
 <div class="cursor-dot" id="cursor-dot"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
 
@@ -1227,6 +1248,57 @@ ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<PortfolioTwe
     dot.style.opacity = '1';
     ring.style.opacity = '1';
   });
+
+  // Dot pattern — circles of dots around cursor
+  const patternContainer = document.getElementById('cursor-dot-pattern');
+  const DOT_COUNT = 8;
+  const DOT_RADIUS = 60;
+  const dots = [];
+  for (let i = 0; i < DOT_COUNT; i++) {
+    const el = document.createElement('div');
+    el.className = 'pdot';
+    patternContainer.appendChild(el);
+    dots.push({ el, angle: (i / DOT_COUNT) * Math.PI * 2, targetOpacity: 0, currentOpacity: 0 });
+  }
+
+  let pmx = 0, pmy = 0;
+  let patternActive = false;
+
+  document.addEventListener('mousemove', e => {
+    pmx = e.clientX;
+    pmy = e.clientY;
+    if (!patternActive) {
+      patternActive = true;
+      dots.forEach(d => d.targetOpacity = 1);
+    }
+  });
+
+  document.addEventListener('mouseleave', () => {
+    patternActive = false;
+    dots.forEach(d => d.targetOpacity = 0);
+  });
+  document.addEventListener('mouseenter', () => {
+    patternActive = true;
+    dots.forEach(d => d.targetOpacity = 1);
+  });
+
+  let pAngle = 0;
+  function animatePattern() {
+    pAngle += 0.008;
+    for (let i = 0; i < dots.length; i++) {
+      const d = dots[i];
+      d.currentOpacity += (d.targetOpacity - d.currentOpacity) * 0.1;
+      const a = d.angle + pAngle;
+      const r = DOT_RADIUS + Math.sin(a * 2) * 15;
+      const x = pmx + Math.cos(a) * r;
+      const y = pmy + Math.sin(a) * r;
+      d.el.style.left = x + 'px';
+      d.el.style.top = y + 'px';
+      d.el.style.opacity = d.currentOpacity * (0.4 + Math.sin(a * 3) * 0.3);
+    }
+    requestAnimationFrame(animatePattern);
+  }
+  animatePattern();
 })();
 </script>
 
