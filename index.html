@@ -20,6 +20,13 @@
     --font-display: 'Syne', sans-serif;
     --font-body: 'DM Sans', sans-serif;
   }
+  body.light {
+    --bg: #f5f3ef;
+    --fg: #1a1918;
+    --muted: #8a8784;
+    --accent: #b07a52;
+    --border: #d8d5d0;
+  }
 
   html { scroll-behavior: smooth; }
 
@@ -56,6 +63,7 @@
     z-index: 9999;
     transform: translate(-50%, -50%);
     transition: width 0.3s, height 0.3s, background 0.3s, opacity 0.3s;
+    mix-blend-mode: difference;
   }
   .cursor-ring {
     width: 40px;
@@ -116,7 +124,7 @@
     height: 100vh;
     pointer-events: none;
     z-index: -1;
-    background-image: radial-gradient(circle, rgba(196,149,106,0.15) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(196,149,106,0.25) 1px, transparent 1px);
     background-size: 32px 32px;
     -webkit-mask-image: radial-gradient(circle 350px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 100%);
     mask-image: radial-gradient(circle 350px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 100%);
@@ -165,6 +173,45 @@
   }
 
   .nav-links a:hover { opacity: 0.5; }
+
+  /* ── THEME TOGGLE ── */
+  .theme-toggle {
+    width: 44px;
+    height: 24px;
+    background: var(--border);
+    border-radius: 12px;
+    border: none;
+    cursor: none !important;
+    position: relative;
+    transition: background 0.3s;
+    flex-shrink: 0;
+  }
+  .theme-toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    background: var(--fg);
+    border-radius: 50%;
+    transition: transform 0.3s;
+  }
+  body.light .theme-toggle::after {
+    transform: translateX(20px);
+  }
+  .theme-toggle .icon-sun,
+  .theme-toggle .icon-moon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    transition: opacity 0.3s;
+  }
+  .theme-toggle .icon-sun { left: 6px; opacity: 1; }
+  .theme-toggle .icon-moon { right: 5px; opacity: 0; }
+  body.light .theme-toggle .icon-sun { opacity: 0; }
+  body.light .theme-toggle .icon-moon { opacity: 1; }
 
   /* ── HERO ── */
   .hero {
@@ -807,11 +854,17 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-name">Denis Trojan</a>
-  <ul class="nav-links">
-    <li><a href="#projects">Work</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <div style="display:flex;align-items:center;gap:24px">
+    <ul class="nav-links">
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="theme-toggle" onclick="document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark')">
+      <span class="icon-sun">☀</span>
+      <span class="icon-moon">☾</span>
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1181,6 +1234,13 @@ function PortfolioTweaks() {
 }
 
 ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<PortfolioTweaks />);
+</script>
+
+<script>
+// Theme restore
+(function() {
+  if (localStorage.getItem('theme') === 'light') document.body.classList.add('light');
+})();
 </script>
 
 <!-- CURSOR FOLLOWER -->
