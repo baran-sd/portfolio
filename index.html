@@ -1250,6 +1250,7 @@ ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<PortfolioTwe
 <script>
 (function() {
   if (typeof lucide !== 'undefined') lucide.createIcons();
+  else window.addEventListener('load', () => { if (typeof lucide !== 'undefined') lucide.createIcons(); });
   const dot = document.getElementById('cursor-dot');
   const ring = document.getElementById('cursor-ring');
   let mx = 0, my = 0;
