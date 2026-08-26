@@ -23,7 +23,7 @@
   body.light {
     --bg: #f5f3ef;
     --fg: #1a1918;
-    --muted: #8a8784;
+    --muted: #5a5855;
     --accent: #b07a52;
     --border: #d8d5d0;
   }
@@ -124,11 +124,14 @@
     height: 100vh;
     pointer-events: none;
     z-index: -1;
-    background-image: radial-gradient(circle, rgba(196,149,106,0.25) 1px, transparent 1px);
+    background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
     background-size: 32px 32px;
+    color: rgba(196,149,106,0.25);
     -webkit-mask-image: radial-gradient(circle 350px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 100%);
     mask-image: radial-gradient(circle 350px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 100%);
-    transition: -webkit-mask-image 0.05s, mask-image 0.05s;
+  }
+  body.light .cursor-dot-pattern {
+    color: rgba(40,38,35,0.35);
   }
   body:hover .cursor-spotlight { opacity: 1; }
   @media (pointer: coarse) {
