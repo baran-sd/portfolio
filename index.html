@@ -1090,11 +1090,6 @@
 </div>
 
 <!-- SCRIPTS -->
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-
 <script>
 // Scroll reveal
 const observer = new IntersectionObserver((entries) => {
@@ -1161,70 +1156,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') stepLightbox(1);
   if (e.key === 'ArrowLeft') stepLightbox(-1);
 });
-</script>
-
-<script>
-// TWEAK DEFAULTS
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accentColor": "#c4956a",
-  "heroSize": "large",
-  "showStats": true
-}/*EDITMODE-END*/;
-</script>
-
-<div id="tweaks-root"></div>
-
-<script type="text/babel">
-const { useTweaks, TweaksPanel, TweakSection, TweakColor, TweakRadio, TweakToggle } = window;
-
-function PortfolioTweaks() {
-  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
-
-  React.useEffect(() => {
-    document.documentElement.style.setProperty('--accent', t.accentColor);
-
-    const heroName = document.querySelector('.hero-name');
-    if (heroName) {
-      const sizes = { small: 'clamp(48px, 8vw, 120px)', large: 'clamp(72px, 12vw, 180px)', massive: 'clamp(96px, 16vw, 240px)' };
-      heroName.style.fontSize = sizes[t.heroSize] || sizes.large;
-    }
-
-    const statsRow = document.querySelector('.stats-row');
-    if (statsRow) {
-      statsRow.style.display = t.showStats ? 'flex' : 'none';
-    }
-  }, [t]);
-
-  return (
-    <TweaksPanel>
-      <TweakSection title="Accent">
-        <TweakColor
-          label="Accent color"
-          value={t.accentColor}
-          onChange={v => setTweak('accentColor', v)}
-          options={['#c4956a', '#7b9dd4', '#8fba8f', '#d4807b']}
-        />
-      </TweakSection>
-      <TweakSection title="Hero">
-        <TweakRadio
-          label="Name size"
-          value={t.heroSize}
-          onChange={v => setTweak('heroSize', v)}
-          options={['small', 'large', 'massive']}
-        />
-      </TweakSection>
-      <TweakSection title="About">
-        <TweakToggle
-          label="Show stats"
-          value={t.showStats}
-          onChange={v => setTweak('showStats', v)}
-        />
-      </TweakSection>
-    </TweaksPanel>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<PortfolioTweaks />);
 </script>
 
 <script>
