@@ -173,6 +173,18 @@
     align-items: center;
     justify-content: space-between;
     padding: 28px 48px;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    transition: backdrop-filter 0.4s, -webkit-backdrop-filter 0.4s, padding 0.4s, background 0.4s;
+  }
+  nav.scrolled {
+    padding: 16px 48px 40px;
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
+    background: linear-gradient(to bottom, var(--bg) 0%, rgba(10,10,9,0.85) 60%, rgba(10,10,9,0.4) 85%, transparent 100%);
+  }
+  body.light nav.scrolled {
+    background: linear-gradient(to bottom, var(--bg) 0%, rgba(245,243,239,0.85) 60%, rgba(245,243,239,0.4) 85%, transparent 100%);
   }
 
   .nav-name {
@@ -870,7 +882,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-name">Denis Trojan</a>
+  <a href="#" class="nav-name">DT</a>
   <div style="display:flex;align-items:center;gap:24px">
     <ul class="nav-links">
       <li><a href="#projects">Work</a></li>
@@ -1128,6 +1140,19 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Nav scroll effect
+const navEl = document.querySelector('nav');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y > 60) {
+    navEl.classList.add('scrolled');
+  } else {
+    navEl.classList.remove('scrolled');
+  }
+  lastScroll = y;
+}, { passive: true });
 
 // Accordion toggle
 function toggleProject(entry) {
