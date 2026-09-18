@@ -850,7 +850,43 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     nav { padding: 20px 24px; }
-    .nav-links { gap: 20px; }
+    .nav-links {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--bg);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 99;
+    }
+    .nav-links.open { opacity: 1; pointer-events: auto; }
+    .nav-links a { font-size: 24px; }
+    .burger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 24px;
+      cursor: none !important;
+      z-index: 101;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .burger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--fg);
+      border-radius: 1px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     .hero { padding: 0 24px 60px; }
     .hero-name { font-size: clamp(42px, 12vw, 80px) !important; }
     .hero-meta { flex-direction: column; align-items: flex-start; }
@@ -884,14 +920,17 @@
 <nav>
   <a href="#" class="nav-name">DT</a>
   <div style="display:flex;align-items:center;gap:24px">
-    <ul class="nav-links">
-      <li><a href="#projects">Work</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#projects" onclick="closeMenu()">Work</a></li>
+      <li><a href="#about" onclick="closeMenu()">About</a></li>
+      <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
     </ul>
     <button class="theme-toggle" id="theme-toggle" onclick="document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark')">
       <i data-lucide="sun" class="icon-sun" style="width:16px;height:16px"></i>
       <i data-lucide="moon" class="icon-moon" style="width:16px;height:16px"></i>
+    </button>
+    <button class="burger" id="burger" onclick="toggleMenu()" style="display:none">
+      <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
@@ -1153,6 +1192,26 @@ window.addEventListener('scroll', () => {
   }
   lastScroll = y;
 }, { passive: true });
+
+// Burger menu
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('nav-links');
+function toggleMenu() {
+  burger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+  document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+}
+function closeMenu() {
+  burger.classList.remove('open');
+  navLinks.classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Show burger on mobile
+if (window.innerWidth <= 768) burger.style.display = 'flex';
+window.addEventListener('resize', () => {
+  burger.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+  if (window.innerWidth > 768) closeMenu();
+});
 
 // Accordion toggle
 function toggleProject(entry) {
