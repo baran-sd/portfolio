@@ -570,6 +570,148 @@
     color: var(--accent);
   }
 
+  /* ── DESIGN SYSTEMS ── */
+  .design-systems {
+    padding: 120px 48px;
+    border-top: 1px solid var(--border);
+    scroll-margin-top: 80px;
+  }
+
+  .design-systems-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 72px;
+  }
+
+  .design-systems-headline {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(38px, 5vw, 76px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  .design-systems-headline span { color: var(--accent); }
+
+  .design-systems-description {
+    max-width: 560px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  .design-systems-benefits {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 96px;
+  }
+
+  .design-systems-card {
+    min-width: 0;
+    padding: 32px 28px 36px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+  }
+
+  .design-systems-card-number {
+    display: block;
+    margin-bottom: 56px;
+    color: var(--accent);
+    font: 700 13px var(--font-display);
+  }
+
+  .design-systems-card h3 {
+    margin-bottom: 14px;
+    font: 700 clamp(20px, 2vw, 28px)/1.15 var(--font-display);
+  }
+
+  .design-systems-card p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .design-systems-contact {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 80px;
+    padding-top: 64px;
+    border-top: 1px solid var(--border);
+  }
+
+  .design-systems-contact h3 {
+    max-width: 500px;
+    font: 700 clamp(32px, 3.5vw, 52px)/1.1 var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  .design-systems-contact h3 span { color: var(--accent); }
+
+  .design-systems-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .design-systems-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .design-systems-field-full { grid-column: 1 / -1; }
+
+  .design-systems-field label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .design-systems-field input,
+  .design-systems-field textarea {
+    width: 100%;
+    padding: 14px 0;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    background: transparent;
+    color: var(--fg);
+    font: 16px/1.5 var(--font-body);
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .design-systems-field textarea { min-height: 120px; resize: vertical; }
+  .design-systems-field input:focus,
+  .design-systems-field textarea:focus { border-color: var(--accent); }
+
+  .design-systems-submit {
+    justify-self: start;
+    padding: 14px 28px;
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    background: var(--accent);
+    color: var(--bg);
+    font: 700 13px var(--font-display);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .design-systems-submit:hover,
+  .design-systems-submit:focus-visible {
+    background: transparent;
+    color: var(--accent);
+  }
+
   /* ── ABOUT ── */
   .about {
     padding: 120px 48px;
@@ -858,6 +1000,12 @@
     .projects { padding: 80px 24px 60px; }
     .project-item { grid-template-columns: 48px 1fr auto; }
     .project-tag { display: none; }
+    .design-systems { padding: 80px 24px; }
+    .design-systems-intro,
+    .design-systems-contact { grid-template-columns: 1fr; gap: 32px; }
+    .design-systems-intro { margin-bottom: 48px; }
+    .design-systems-benefits { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 64px; }
+    .design-systems-contact { padding-top: 48px; }
     .gallery-slide { flex: 0 0 84vw; height: 54vw; }
     .lightbox { padding: 64px 20px; }
     .lb-prev { left: 8px; }
@@ -869,6 +1017,17 @@
     .contact-links { flex-direction: column; gap: 20px; }
     footer { padding: 32px 24px; flex-direction: column; gap: 12px; text-align: center; }
     .stats-row { gap: 36px; }
+  }
+  @media (max-width: 600px) {
+    nav, nav.scrolled { padding-left: 16px; padding-right: 16px; }
+    .nav-name { font-size: 13px; }
+    .nav-links { gap: 8px; }
+    .nav-links a { font-size: 10px; }
+    nav > div { gap: 8px !important; }
+    .theme-toggle { width: 32px; height: 32px; }
+    .design-systems-benefits,
+    .design-systems-form { grid-template-columns: 1fr; }
+    .design-systems-card-number { margin-bottom: 36px; }
   }
 </style>
 </head>
@@ -887,6 +1046,7 @@
   <div style="display:flex;align-items:center;gap:24px">
     <ul class="nav-links">
       <li><a href="#projects">Work</a></li>
+      <li><a href="#design-systems">Design Systems</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -1080,6 +1240,66 @@
     </div>
 
   </div>
+</section>
+
+<!-- DESIGN SYSTEMS -->
+<section class="design-systems" id="design-systems" aria-labelledby="design-systems-title">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <span class="section-title">Design Systems</span>
+  </div>
+  <div class="design-systems-intro">
+    <h2 class="design-systems-headline reveal" id="design-systems-title">A shared language for <span>better products.</span></h2>
+    <p class="design-systems-description reveal reveal-delay-1">A design system brings your brand rules, reusable interface components, and clear usage guidelines into one source of truth. It helps designers and developers make confident decisions together, so every experience feels connected as your product grows.</p>
+  </div>
+
+  <div class="design-systems-benefits" aria-label="Design system benefits">
+    <article class="design-systems-card reveal">
+      <span class="design-systems-card-number">01 /</span>
+      <h3>Consistency</h3>
+      <p>Give every screen and touchpoint the same clear patterns, so customers always know where they are and what to do.</p>
+    </article>
+    <article class="design-systems-card reveal reveal-delay-1">
+      <span class="design-systems-card-number">02 /</span>
+      <h3>Faster development</h3>
+      <p>Reusable components reduce repeated design and build work, helping teams ship new features with less friction.</p>
+    </article>
+    <article class="design-systems-card reveal reveal-delay-2">
+      <span class="design-systems-card-number">03 /</span>
+      <h3>Brand coherence</h3>
+      <p>Keep typography, color, voice, and interaction details aligned wherever your brand shows up.</p>
+    </article>
+    <article class="design-systems-card reveal reveal-delay-3">
+      <span class="design-systems-card-number">04 /</span>
+      <h3>Scalability</h3>
+      <p>Give growing teams a foundation that adapts to new products, platforms, themes, and markets.</p>
+    </article>
+  </div>
+
+  <div class="design-systems-contact">
+    <h3 class="reveal">Let's build a system that <span>works for you.</span></h3>
+    <form class="design-systems-form reveal reveal-delay-1" action="https://formspree.io/f/your-form-id" method="POST">
+      <div class="design-systems-field">
+        <label for="ds-name">Name</label>
+        <input id="ds-name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="design-systems-field">
+        <label for="ds-email">Email</label>
+        <input id="ds-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="design-systems-field design-systems-field-full">
+        <label for="ds-company">Company</label>
+        <input id="ds-company" name="company" type="text" autocomplete="organization">
+      </div>
+      <div class="design-systems-field design-systems-field-full">
+        <label for="ds-message">Message</label>
+        <textarea id="ds-message" name="message" required></textarea>
+      </div>
+      <button class="design-systems-submit" type="submit">Submit</button>
+    </form>
+  </div>
+</section>
+
 <section class="about" id="about">
   <div class="reveal">
     <h2 class="about-headline" style="font-size: 70px; line-height: 1.3; letter-spacing: -0.5px">Designing for<br><span class="accent">moments</span><br>that matter</h2>
