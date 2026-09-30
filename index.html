@@ -712,6 +712,16 @@
     color: var(--accent);
   }
 
+  .ds-success-msg {
+    padding: 20px 24px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    color: var(--accent);
+    font: 500 16px var(--font-body);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
   /* ── ABOUT ── */
   .about {
     padding: 120px 48px;
@@ -1278,24 +1288,25 @@
 
   <div class="design-systems-contact">
     <h3 class="reveal">Let's build a system that <span>works for you.</span></h3>
-    <form class="design-systems-form reveal reveal-delay-1" action="https://formspree.io/f/maenvroj" method="POST">
+    <div data-fs-success class="ds-success-msg" style="display:none">Thanks! I'll get back to you soon.</div>
+    <form id="ds-form" class="design-systems-form reveal reveal-delay-1" action="https://formspree.io/f/maenvroj" method="POST">
       <div class="design-systems-field">
         <label for="ds-name">Name</label>
-        <input id="ds-name" name="name" type="text" autocomplete="name" required>
+        <input id="ds-name" name="name" type="text" autocomplete="name" data-fs-field required>
       </div>
       <div class="design-systems-field">
         <label for="ds-email">Email</label>
-        <input id="ds-email" name="email" type="email" autocomplete="email" required>
+        <input id="ds-email" name="email" type="email" autocomplete="email" data-fs-field required>
       </div>
       <div class="design-systems-field design-systems-field-full">
         <label for="ds-company">Company</label>
-        <input id="ds-company" name="company" type="text" autocomplete="organization">
+        <input id="ds-company" name="company" type="text" autocomplete="organization" data-fs-field>
       </div>
       <div class="design-systems-field design-systems-field-full">
         <label for="ds-message">Message</label>
-        <textarea id="ds-message" name="message" required></textarea>
+        <textarea id="ds-message" name="message" data-fs-field required></textarea>
       </div>
-      <button class="design-systems-submit" type="submit">Submit</button>
+      <button class="design-systems-submit" type="submit" data-fs-submit-btn>Submit</button>
     </form>
   </div>
 </section>
@@ -1508,6 +1519,13 @@ document.addEventListener('keydown', e => {
 
 })();
 </script>
+
+<!-- Formspree AJAX -->
+<script>
+window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+formspree('initForm', { formElement: '#ds-form', formId: 'maenvroj' });
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 </body>
 </html>
