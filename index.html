@@ -588,7 +588,7 @@
   .design-systems-headline {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(38px, 5vw, 76px);
+    font-size: clamp(32px, 5vw, 76px);
     line-height: 1.05;
     letter-spacing: -0.03em;
   }
@@ -619,7 +619,7 @@
 
   .design-systems-card-number {
     display: block;
-    margin-bottom: 56px;
+    margin-bottom: 40px;
     color: var(--accent);
     font: 700 13px var(--font-display);
   }
@@ -720,6 +720,33 @@
     font: 500 16px var(--font-body);
     text-align: center;
     margin-bottom: 32px;
+  }
+
+  @media (max-width: 900px) {
+    .design-systems-intro {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .design-systems-benefits {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .design-systems-contact {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .design-systems { padding: 60px 20px; }
+    .design-systems-headline { font-size: clamp(28px, 8vw, 40px); }
+    .design-systems-benefits { grid-template-columns: 1fr; gap: 12px; }
+    .design-systems-card { padding: 24px 20px; }
+    .design-systems-card-number { margin-bottom: 28px; }
+    .design-systems-card h3 { font-size: 20px; }
+    .design-systems-contact h3 { font-size: clamp(24px, 6vw, 36px); }
+    .design-systems-form { grid-template-columns: 1fr; gap: 20px; }
+    .design-systems-field-full { grid-column: auto; }
+    .design-systems-submit { width: 100%; text-align: center; }
   }
 
   /* ── ABOUT ── */
@@ -1010,12 +1037,6 @@
     .projects { padding: 80px 24px 60px; }
     .project-item { grid-template-columns: 48px 1fr auto; }
     .project-tag { display: none; }
-    .design-systems { padding: 80px 24px; }
-    .design-systems-intro,
-    .design-systems-contact { grid-template-columns: 1fr; gap: 32px; }
-    .design-systems-intro { margin-bottom: 48px; }
-    .design-systems-benefits { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 64px; }
-    .design-systems-contact { padding-top: 48px; }
     .gallery-slide { flex: 0 0 84vw; height: 54vw; }
     .lightbox { padding: 64px 20px; }
     .lb-prev { left: 8px; }
@@ -1035,9 +1056,6 @@
     .nav-links a { font-size: 10px; }
     nav > div { gap: 8px !important; }
     .theme-toggle { width: 32px; height: 32px; }
-    .design-systems-benefits,
-    .design-systems-form { grid-template-columns: 1fr; }
-    .design-systems-card-number { margin-bottom: 36px; }
   }
 </style>
 </head>
