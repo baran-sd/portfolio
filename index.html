@@ -416,7 +416,8 @@
   .gallery-track::-webkit-scrollbar { display: none; }
 
   .gallery-slide {
-    flex: 0 0 720px;
+    flex: 0 0 auto;
+    width: max-content;
     height: 460px;
     border-radius: 8px;
     cursor: zoom-in;
@@ -426,9 +427,10 @@
   }
 
   .gallery-slide img {
-    width: 100%;
+    width: auto;
     height: 100%;
-    object-fit: cover;
+    max-width: none;
+    object-fit: contain;
     display: block;
   }
 
@@ -1037,7 +1039,7 @@
     .projects { padding: 80px 24px 60px; }
     .project-item { grid-template-columns: 48px 1fr auto; }
     .project-tag { display: none; }
-    .gallery-slide { flex: 0 0 84vw; height: 54vw; }
+    .gallery-slide { flex: 0 0 auto; height: 54vw; }
     .lightbox { padding: 64px 20px; }
     .lb-prev { left: 8px; }
     .lb-next { right: 8px; }
@@ -1421,8 +1423,14 @@ function toggleProject(entry) {
 // Gallery horizontal scroll
 function scrollGallery(btn, dir) {
   const track = btn.closest('.gallery-inner').querySelector('.gallery-track');
-  const slideW = track.querySelector('.gallery-slide').offsetWidth + 16;
-  track.scrollLeft += dir * slideW;
+  const slides = [...track.querySelectorAll('.gallery-slide')];
+  const origin = slides[0].offsetLeft;
+  const positions = slides.map(slide => slide.offsetLeft - origin);
+  const current = track.scrollLeft;
+  const target = dir > 0
+    ? positions.find(position => position > current + 2)
+    : positions.slice().reverse().find(position => position < current - 2);
+  track.scrollTo({left: target ?? (dir > 0 ? track.scrollWidth - track.clientWidth : 0), behavior: 'smooth'});
 }
 
 // Lightbox
