@@ -1415,24 +1415,30 @@ window.addEventListener('scroll', () => {
   lastScroll = y;
 }, { passive: true });
 
-// Accordion toggle: align only after opening/closing transitions settle.
-let projectScrollTimer;
+// Keep the selected heading on one continuous screen-space path while galleries resize.
+let projectScrollFrame;
 function toggleProject(entry) {
-  clearTimeout(projectScrollTimer);
+  cancelAnimationFrame(projectScrollFrame);
   const wasOpen = entry.classList.contains('open');
+  const initialTop = entry.getBoundingClientRect().top;
   document.querySelectorAll('.project-entry.open').forEach(e => e.classList.remove('open'));
   if (wasOpen) return;
   entry.classList.add('open');
-  // Settle the compact fixed header before measuring it.
-  document.querySelector('nav').classList.add('scrolled');
-  projectScrollTimer = setTimeout(() => {
+  const nav = document.querySelector('nav');
+  nav.classList.add('scrolled');
+  const started = performance.now();
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function align(now) {
     if (!entry.classList.contains('open')) return;
-    const headerHeight = document.querySelector('nav').getBoundingClientRect().height;
-    let absoluteTop = 0;
-    for (let node = entry; node; node = node.offsetParent) absoluteTop += node.offsetTop;
-    const top = absoluteTop - headerHeight - 8;
-    window.scrollTo({top: Math.max(0, top), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
-  }, 650);
+    const progress = Math.min(1, (now - started) / 700);
+    const eased = reduced ? 1 : 1 - Math.pow(1 - progress, 3);
+    const destination = nav.getBoundingClientRect().height + 8;
+    const screenTop = initialTop + (destination - initialTop) * eased;
+    const documentTop = window.scrollY + entry.getBoundingClientRect().top;
+    window.scrollTo({top: Math.max(0, documentTop - screenTop), behavior: 'instant'});
+    if (progress < 1) projectScrollFrame = requestAnimationFrame(align);
+  }
+  projectScrollFrame = requestAnimationFrame(align);
 }
 
 // Gallery horizontal scroll
