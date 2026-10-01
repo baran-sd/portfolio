@@ -1415,13 +1415,24 @@ window.addEventListener('scroll', () => {
   lastScroll = y;
 }, { passive: true });
 
-// Accordion toggle
+// Accordion toggle: align only after opening/closing transitions settle.
+let projectScrollTimer;
 function toggleProject(entry) {
+  clearTimeout(projectScrollTimer);
   const wasOpen = entry.classList.contains('open');
-  // Close all
   document.querySelectorAll('.project-entry.open').forEach(e => e.classList.remove('open'));
-  // Open clicked (if it wasn't already open)
-  if (!wasOpen) entry.classList.add('open');
+  if (wasOpen) return;
+  entry.classList.add('open');
+  // Settle the compact fixed header before measuring it.
+  document.querySelector('nav').classList.add('scrolled');
+  projectScrollTimer = setTimeout(() => {
+    if (!entry.classList.contains('open')) return;
+    const headerHeight = document.querySelector('nav').getBoundingClientRect().height;
+    let absoluteTop = 0;
+    for (let node = entry; node; node = node.offsetParent) absoluteTop += node.offsetTop;
+    const top = absoluteTop - headerHeight - 8;
+    window.scrollTo({top: Math.max(0, top), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+  }, 650);
 }
 
 // Gallery horizontal scroll
