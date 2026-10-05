@@ -1696,27 +1696,65 @@ document.addEventListener('keydown', e => {
 })();
 </script>
 
-<!-- Formspree AJAX -->
-<script>
-window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-formspree('initForm', { formElement: '#ds-form', formId: 'maenvroj' });
-</script>
-<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
-
-<!-- Fallback: show success message if Formspree AJAX doesn't work -->
+<!-- Formspree submit with proper response handling + Hotjar tracking -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   var form = document.querySelector('#ds-form');
   var successMsg = document.querySelector('[data-fs-success]');
-  if (form && successMsg) {
-    form.addEventListener('submit', function(e) {
-      // Show success message after a short delay (in case AJAX doesn't work)
-      setTimeout(function() {
-        successMsg.style.display = 'block';
+  var submitBtn = form ? form.querySelector('[type="submit"]') : null;
+
+  if (!form || !successMsg) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Disable button
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'SENDING...';
+    }
+
+    // Submit via fetch
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(response) {
+      if (response.ok) {
+        // Success — show message
+        successMsg.style.display = 'flex';
         form.style.display = 'none';
-      }, 1000);
+
+        // Hotjar event: form submission confirmed
+        if (typeof hj === 'function') {
+          hj('event', 'form_submitted');
+        }
+        // Contentsquare event
+        if (typeof CS_CONF !== 'undefined') {
+          window._uxa = window._uxa || [];
+          window._uxa.push(['trackDynamicVariable', { key: 'form_submitted', value: 'design_system_enquiry' }]);
+        }
+      } else {
+        // Error — show inline error
+        response.json().then(function(data) {
+          var errorMsg = data.error || 'Something went wrong. Please try again.';
+          alert(errorMsg);
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'SEND ENQUIRY';
+          }
+        });
+      }
+    })
+    .catch(function() {
+      alert('Network error. Please try again.');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'SEND ENQUIRY';
+      }
     });
-  }
+  });
 });
 </script>
 
