@@ -1,5 +1,5 @@
 /* VuT5e service styling. Deliberately does not override any .ds-* 3D styles or inherited tokens. */
-.design-systems{background:linear-gradient(90deg,rgba(var(--accent-rgb),0.15),rgba(0,0,0,0.8));border-top:2px solid var(--accent);padding:108px 48px 104px}
+.design-systems{background:linear-gradient(90deg,rgba(var(--accent-rgb),0.15),rgba(0,0,0,0.8));padding:108px 48px 104px}
 .design-systems .section-header{margin-bottom:56px}
 .design-systems .section-num,.design-systems .section-title{color:var(--accent)}
 .design-systems-message{gap:28px;padding-bottom:6px}
@@ -20,7 +20,7 @@
 .design-systems-submit{border-radius:2px;background:var(--btn-bg);border-color:var(--btn-border);color:var(--btn-text);min-height:48px}
 .design-systems-submit:hover,.design-systems-submit:focus-visible{color:var(--btn-hover-text)}
 .ds-success-msg{grid-column:2}
-body.light .design-systems{background:linear-gradient(90deg,rgba(var(--accent-rgb),0.1),rgba(var(--accent-rgb),0.02));border-top-color:var(--accent)}
+body.light .design-systems{background:linear-gradient(90deg,rgba(var(--accent-rgb),0.1),rgba(var(--accent-rgb),0.02))}
 body.light .design-systems-headline,body.light .design-systems-contact h3{color:var(--fg)}
 body.light .design-systems-description{color:var(--muted)}
 body.light .design-systems-scope,body.light .design-systems-field label{color:var(--muted)}
