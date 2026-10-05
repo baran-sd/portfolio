@@ -1699,5 +1699,27 @@ formspree('initForm', { formElement: '#ds-form', formId: 'maenvroj' });
 <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 <script src="design-systems-3d.js" defer></script>
+
+<!-- Contentsquare virtual pageviews per section -->
+<script>
+(function() {
+  var sections = ['hero','projects','design-systems','about','contact'];
+  var sent = {};
+  if (!('IntersectionObserver' in window)) return;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      var id = e.target.id;
+      if (e.isIntersecting && !sent[id] && typeof _uxa === 'object') {
+        sent[id] = true;
+        _uxa.push(['trackPageview', '/#' + id]);
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+})();
+</script>
 </body>
 </html>
