@@ -1698,28 +1698,23 @@ formspree('initForm', { formElement: '#ds-form', formId: 'maenvroj' });
 </script>
 <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
-<script src="design-systems-3d.js" defer></script>
-
-<!-- Contentsquare virtual pageviews per section -->
+<!-- Fallback: show success message if Formspree AJAX doesn't work -->
 <script>
-(function() {
-  var sections = ['hero','projects','design-systems','about','contact'];
-  var sent = {};
-  if (!('IntersectionObserver' in window)) return;
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      var id = e.target.id;
-      if (e.isIntersecting && !sent[id] && typeof _uxa === 'object') {
-        sent[id] = true;
-        _uxa.push(['trackPageview', '/#' + id]);
-      }
+document.addEventListener('DOMContentLoaded', function() {
+  var form = document.querySelector('#ds-form');
+  var successMsg = document.querySelector('[data-fs-success]');
+  if (form && successMsg) {
+    form.addEventListener('submit', function(e) {
+      // Show success message after a short delay (in case AJAX doesn't work)
+      setTimeout(function() {
+        successMsg.style.display = 'block';
+        form.style.display = 'none';
+      }, 1000);
     });
-  }, { threshold: 0.3 });
-  sections.forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) observer.observe(el);
-  });
-})();
+  }
+});
 </script>
+
+<script src="design-systems-3d.js" defer></script>
 </body>
 </html>
