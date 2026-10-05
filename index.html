@@ -1731,10 +1731,8 @@ document.addEventListener('DOMContentLoaded', function() {
           hj('event', 'form_submitted');
         }
         // Contentsquare event
-        if (typeof CS_CONF !== 'undefined') {
-          window._uxa = window._uxa || [];
-          window._uxa.push(['trackDynamicVariable', { key: 'form_submitted', value: 'design_system_enquiry' }]);
-        }
+        window._uxa = window._uxa || [];
+        window._uxa.push(['trackDynamicVariable', { key: 'form_submitted', value: 'design_system_enquiry' }]);
       } else {
         // Error — show inline error
         response.json().then(function(data) {
