@@ -44,9 +44,30 @@
     --fg: #f7f6f4;
     --muted: #6b6865;
     --accent: #c4956a;
+    --accent-rgb: 196,149,106;
     --border: #1e1d1b;
     --font-display: 'Syne', sans-serif;
     --font-body: 'DM Sans', sans-serif;
+
+    /* Button variables */
+    --btn-bg: var(--accent);
+    --btn-text: var(--bg);
+    --btn-border: var(--accent);
+    --btn-hover-bg: transparent;
+    --btn-hover-text: var(--accent);
+    --btn-hover-border: var(--accent);
+
+    /* Input variables */
+    --input-bg: transparent;
+    --input-border: var(--border);
+    --input-focus: var(--accent);
+    --input-text: var(--fg);
+    --input-placeholder: var(--muted);
+
+    /* Card variables */
+    --card-bg: rgba(255,255,255,0.03);
+    --card-border: var(--border);
+    --card-hover-border: var(--accent);
   }
   body.light {
     --bg: #f5f3ef;
@@ -54,6 +75,7 @@
     --muted: #5a5855;
     --accent: #b07a52;
     --border: #d8d5d0;
+    --card-bg: rgba(0,0,0,0.02);
   }
 
   html { scroll-behavior: smooth; }
@@ -96,7 +118,7 @@
   .cursor-ring {
     width: 40px;
     height: 40px;
-    border: 1px solid rgba(247,246,244,0.4);
+    border: 1px solid rgba(var(--accent-rgb), 0.4);
     border-radius: 50%;
     position: fixed;
     top: 0;
@@ -109,7 +131,7 @@
   .cursor-dot.hovering {
     width: 60px;
     height: 60px;
-    background: rgba(196,149,106,0.15);
+    background: rgba(var(--accent-rgb), 0.15);
     mix-blend-mode: normal;
   }
   .cursor-dot.hovering::after {
@@ -142,7 +164,7 @@
     mix-blend-mode: screen;
     opacity: 0;
     transition: opacity 0.6s ease;
-    background: radial-gradient(circle 400px at var(--mx, 50%) var(--my, 50%), rgba(196,149,106,0.15) 0%, transparent 100%);
+    background: radial-gradient(circle 400px at var(--mx, 50%) var(--my, 50%), rgba(var(--accent-rgb), 0.15) 0%, transparent 100%);
   }
   .cursor-dot-pattern {
     position: fixed;
@@ -154,7 +176,7 @@
     z-index: -1;
     background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
     background-size: 32px 32px;
-    color: rgba(196,149,106,0.25);
+    color: rgba(var(--accent-rgb), 0.25);
     -webkit-mask-image: radial-gradient(circle 350px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 100%);
     mask-image: radial-gradient(circle 350px at var(--mx, 50%) var(--my, 50%), black 0%, transparent 100%);
   }
@@ -184,10 +206,10 @@
     padding: 16px 48px;
     backdrop-filter: blur(24px) saturate(1.4);
     -webkit-backdrop-filter: blur(24px) saturate(1.4);
-    background: linear-gradient(to top, var(--bg) 0%, rgba(10,10,9,0.85) 60%, rgba(10,10,9,0.4) 85%, transparent 100%);
+    background: linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 85%, transparent) 60%, color-mix(in srgb, var(--bg) 40%, transparent) 85%, transparent 100%);
   }
   body.light nav.scrolled {
-    background: linear-gradient(to top, var(--bg) 0%, rgba(245,243,239,0.85) 60%, rgba(245,243,239,0.4) 85%, transparent 100%);
+    background: linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 85%, transparent) 60%, color-mix(in srgb, var(--bg) 40%, transparent) 85%, transparent 100%);
   }
 
   .nav-name {
@@ -449,7 +471,7 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--muted);
-    background: linear-gradient(135deg, var(--border) 0%, #151413 100%);
+    background: linear-gradient(135deg, var(--border) 0%, color-mix(in srgb, var(--bg) 80%, var(--fg)) 100%);
   }
 
   .gallery-nav {
@@ -463,7 +485,7 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 1px solid var(--border);
+    border: 1px solid var(--btn-border);
     background: transparent;
     color: var(--fg);
     cursor: pointer;
@@ -475,8 +497,8 @@
   }
 
   .gallery-btn:hover {
-    border-color: var(--accent);
-    background: rgba(196,149,106,0.1);
+    border-color: var(--btn-hover-border);
+    background: rgba(var(--accent-rgb), 0.1);
   }
 
   .gallery-btn svg {
@@ -695,26 +717,27 @@
 
   .design-systems-field textarea { min-height: 120px; resize: vertical; }
   .design-systems-field input:focus,
-  .design-systems-field textarea:focus { border-color: var(--accent); }
+  .design-systems-field textarea:focus { border-color: var(--input-focus); }
 
   .design-systems-submit {
     justify-self: start;
     padding: 14px 28px;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--btn-border);
     border-radius: 100px;
-    background: var(--accent);
-    color: var(--bg);
+    background: var(--btn-bg);
+    color: var(--btn-text);
     font: 700 13px var(--font-display);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.3s, color 0.3s;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
   }
 
   .design-systems-submit:hover,
   .design-systems-submit:focus-visible {
-    background: transparent;
-    color: var(--accent);
+    background: var(--btn-hover-bg);
+    color: var(--btn-hover-text);
+    border-color: var(--btn-hover-border);
   }
 
   .ds-success-msg {
@@ -978,8 +1001,8 @@
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    border: 1px solid rgba(247,246,244,0.18);
-    background: rgba(10,10,9,0.6);
+    border: 1px solid rgba(var(--accent-rgb), 0.18);
+    background: color-mix(in srgb, var(--bg) 60%, transparent);
     color: var(--fg);
     cursor: pointer;
     display: flex;
@@ -988,7 +1011,7 @@
     transition: border-color 0.3s, background 0.3s;
   }
 
-  .lightbox-btn:hover { border-color: var(--accent); background: rgba(196,149,106,0.14); }
+  .lightbox-btn:hover { border-color: var(--btn-hover-border); background: rgba(var(--accent-rgb), 0.14); }
   .lightbox-btn svg { width: 18px; height: 18px; }
   .lb-prev { left: 24px; }
   .lb-next { right: 24px; }
@@ -1000,7 +1023,7 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    border: 1px solid rgba(247,246,244,0.18);
+    border: 1px solid rgba(var(--accent-rgb), 0.18);
     background: transparent;
     color: var(--fg);
     cursor: pointer;
@@ -1010,7 +1033,7 @@
     transition: border-color 0.3s, background 0.3s;
   }
 
-  .lightbox-close:hover { border-color: var(--accent); background: rgba(196,149,106,0.14); }
+  .lightbox-close:hover { border-color: var(--btn-hover-border); background: rgba(var(--accent-rgb), 0.14); }
   .lightbox-close svg { width: 16px; height: 16px; }
 
   /* ── SCROLL REVEAL ── */
@@ -1085,7 +1108,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="theme-toggle" id="theme-toggle" onclick="document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark')">
+    <button class="theme-toggle" id="theme-toggle" onclick="window.__toggleTheme()">
       <i data-lucide="sun" class="icon-sun" style="width:16px;height:16px"></i>
       <i data-lucide="moon" class="icon-moon" style="width:16px;height:16px"></i>
     </button>
@@ -1498,9 +1521,111 @@ document.addEventListener('keydown', e => {
 </script>
 
 <script>
-// Theme restore
+// Theme restore — URL params ?theme=dark|light & ?company=vinted|hostinger
 (function() {
-  if (localStorage.getItem('theme') === 'light') document.body.classList.add('light');
+  // Company color palettes
+  const THEMES = {
+    vinted: {
+      dark: {
+        bg: '#0a1614', fg: '#e8f5f0', muted: '#5a8a80',
+        accent: '#007782', accentRgb: '0,119,130', border: '#1a3a35',
+        btnBg: '#007782', btnText: '#e8f5f0', btnBorder: '#007782',
+        btnHoverBg: 'transparent', btnHoverText: '#009aa8', btnHoverBorder: '#009aa8',
+        inputFocus: '#009aa8', cardBg: 'rgba(0,119,130,0.06)', cardBorder: '#1a3a35'
+      },
+      light: {
+        bg: '#f0f7f5', fg: '#1a2a28', muted: '#5a7a72',
+        accent: '#007782', accentRgb: '0,119,130', border: '#c0d8d0',
+        btnBg: '#007782', btnText: '#ffffff', btnBorder: '#007782',
+        btnHoverBg: 'transparent', btnHoverText: '#005f68', btnHoverBorder: '#005f68',
+        inputFocus: '#007782', cardBg: 'rgba(0,119,130,0.04)', cardBorder: '#c0d8d0'
+      }
+    },
+    hostinger: {
+      dark: {
+        bg: '#0a0a18', fg: '#e8e5f5', muted: '#8a7ab0',
+        accent: '#673DE6', accentRgb: '103,61,230', border: '#1a1a3a',
+        btnBg: '#673DE6', btnText: '#e8e5f5', btnBorder: '#673DE6',
+        btnHoverBg: 'transparent', btnHoverText: '#8566FF', btnHoverBorder: '#8566FF',
+        inputFocus: '#8566FF', cardBg: 'rgba(103,61,230,0.06)', cardBorder: '#1a1a3a'
+      },
+      light: {
+        bg: '#f5f0ff', fg: '#1a1a2a', muted: '#7a6a9a',
+        accent: '#673DE6', accentRgb: '103,61,230', border: '#d0c0e8',
+        btnBg: '#673DE6', btnText: '#ffffff', btnBorder: '#673DE6',
+        btnHoverBg: 'transparent', btnHoverText: '#5030C0', btnHoverBorder: '#5030C0',
+        inputFocus: '#673DE6', cardBg: 'rgba(103,61,230,0.04)', cardBorder: '#d0c0e8'
+      }
+    }
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const urlTheme = params.get('theme');
+  const company = params.get('company');
+
+  // Determine mode (dark/light)
+  let mode;
+  if (urlTheme === 'light' || urlTheme === 'dark') {
+    mode = urlTheme;
+    localStorage.setItem('theme', mode);
+  } else {
+    mode = localStorage.getItem('theme') || 'dark';
+  }
+
+  // Apply light class
+  if (mode === 'light') document.body.classList.add('light');
+
+  // Apply company theme via CSS custom properties on body (inline = highest priority)
+  if (company && THEMES[company]) {
+    const vars = THEMES[company][mode];
+    const body = document.body;
+    body.style.setProperty('--bg', vars.bg);
+    body.style.setProperty('--fg', vars.fg);
+    body.style.setProperty('--muted', vars.muted);
+    body.style.setProperty('--accent', vars.accent);
+    body.style.setProperty('--accent-rgb', vars.accentRgb);
+    body.style.setProperty('--border', vars.border);
+    // Button variables
+    body.style.setProperty('--btn-bg', vars.btnBg);
+    body.style.setProperty('--btn-text', vars.btnText);
+    body.style.setProperty('--btn-border', vars.btnBorder);
+    body.style.setProperty('--btn-hover-bg', vars.btnHoverBg);
+    body.style.setProperty('--btn-hover-text', vars.btnHoverText);
+    body.style.setProperty('--btn-hover-border', vars.btnHoverBorder);
+    // Input variables
+    body.style.setProperty('--input-focus', vars.inputFocus);
+    // Card variables
+    body.style.setProperty('--card-bg', vars.cardBg);
+    body.style.setProperty('--card-border', vars.cardBorder);
+  }
+
+  // Expose toggle function for the button
+  window.__toggleTheme = function() {
+    document.body.classList.toggle('light');
+    const newMode = document.body.classList.contains('light') ? 'light' : 'dark';
+    localStorage.setItem('theme', newMode);
+    // Re-apply company theme if set
+    const co = new URLSearchParams(window.location.search).get('company');
+    if (co && THEMES[co]) {
+      const vars = THEMES[co][newMode];
+      const body = document.body;
+      body.style.setProperty('--bg', vars.bg);
+      body.style.setProperty('--fg', vars.fg);
+      body.style.setProperty('--muted', vars.muted);
+      body.style.setProperty('--accent', vars.accent);
+      body.style.setProperty('--accent-rgb', vars.accentRgb);
+      body.style.setProperty('--border', vars.border);
+      body.style.setProperty('--btn-bg', vars.btnBg);
+      body.style.setProperty('--btn-text', vars.btnText);
+      body.style.setProperty('--btn-border', vars.btnBorder);
+      body.style.setProperty('--btn-hover-bg', vars.btnHoverBg);
+      body.style.setProperty('--btn-hover-text', vars.btnHoverText);
+      body.style.setProperty('--btn-hover-border', vars.btnHoverBorder);
+      body.style.setProperty('--input-focus', vars.inputFocus);
+      body.style.setProperty('--card-bg', vars.cardBg);
+      body.style.setProperty('--card-border', vars.cardBorder);
+    }
+  };
 })();
 </script>
 
