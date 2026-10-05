@@ -1560,17 +1560,10 @@ document.addEventListener('keydown', e => {
   };
 
   const params = new URLSearchParams(window.location.search);
-  const urlTheme = params.get('theme');
   const company = params.get('company');
 
-  // Determine mode (dark/light)
-  let mode;
-  if (urlTheme === 'light' || urlTheme === 'dark') {
-    mode = urlTheme;
-    localStorage.setItem('theme', mode);
-  } else {
-    mode = localStorage.getItem('theme') || 'dark';
-  }
+  // Determine mode (dark/light) from localStorage only
+  let mode = localStorage.getItem('theme') || 'dark';
 
   // Apply light class
   if (mode === 'light') document.body.classList.add('light');
