@@ -740,11 +740,16 @@
   }
 
   .ds-success-msg {
-    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 48px 32px;
     border: 1px solid var(--accent);
-    border-radius: 8px;
-    color: var(--accent);
-    font: 500 16px var(--font-body);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--accent) 8%, var(--bg));
+    color: var(--fg);
+    font: 500 18px var(--font-body);
     text-align: center;
     margin-bottom: 32px;
   }
@@ -1341,7 +1346,7 @@
 
   <div class="design-systems-contact" id="design-system-contact">
       <div class="design-systems-contact-message reveal"><p class="design-systems-contact-eyebrow">START A PROJECT / 02</p><h3>Let’s build the system your brand deserves.</h3></div>
-    <div data-fs-success class="ds-success-msg" style="display:none">Thanks! I'll get back to you soon.</div>
+    <div data-fs-success class="ds-success-msg" style="display:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Thanks! I'll get back to you soon.</div>
     <form id="ds-form" class="design-systems-form reveal reveal-delay-1" action="https://formspree.io/f/maenvroj" method="POST">
       <div class="design-systems-field">
         <label for="ds-name">Name</label>
