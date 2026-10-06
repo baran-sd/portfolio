@@ -197,19 +197,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 28px 48px;
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
-    transition: backdrop-filter 0.4s, -webkit-backdrop-filter 0.4s, padding 0.4s, background 0.4s;
-  }
-  nav.scrolled {
-    padding: 16px 48px;
-    backdrop-filter: blur(24px) saturate(1.4);
-    -webkit-backdrop-filter: blur(24px) saturate(1.4);
-    background: linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 85%, transparent) 60%, color-mix(in srgb, var(--bg) 40%, transparent) 85%, transparent 100%);
-  }
-  body.light nav.scrolled {
-    background: linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 85%, transparent) 60%, color-mix(in srgb, var(--bg) 40%, transparent) 85%, transparent 100%);
+    padding: 20px 48px;
+    transition: padding 0.4s;
   }
 
   .nav-name {
@@ -219,33 +208,74 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--fg);
+    transition: opacity 0.3s;
+  }
+  .nav-name:hover { opacity: 0.6; }
+
+  /* Liquid Glass Pill — iOS26 style */
+  .nav-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 100px;
+    background: color-mix(in srgb, var(--bg) 65%, transparent);
+    backdrop-filter: blur(40px) saturate(1.8) brightness(1.1);
+    -webkit-backdrop-filter: blur(40px) saturate(1.8) brightness(1.1);
+    border: 1px solid rgba(var(--accent-rgb), 0.12);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.05) inset,
+      0 8px 32px rgba(0,0,0,0.12),
+      0 2px 8px rgba(0,0,0,0.06);
+    transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+  }
+  body.light .nav-pill {
+    background: color-mix(in srgb, var(--bg) 75%, transparent);
+    border-color: rgba(var(--accent-rgb), 0.15);
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.5) inset,
+      0 8px 32px rgba(0,0,0,0.06),
+      0 2px 8px rgba(0,0,0,0.03);
   }
 
   .nav-links {
     display: flex;
-    gap: 36px;
+    gap: 4px;
     list-style: none;
   }
 
   .nav-links a {
-    font-size: 14px;
+    display: block;
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    color: var(--fg);
-    transition: opacity 0.3s;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s, background 0.3s;
+    position: relative;
   }
-
-  .nav-links a:hover { opacity: 0.5; }
+  .nav-links a:hover {
+    color: var(--fg);
+    background: rgba(var(--accent-rgb), 0.08);
+  }
+  /* Active section indicator */
+  .nav-links a.active {
+    color: var(--fg);
+    background: rgba(var(--accent-rgb), 0.15);
+    font-weight: 600;
+  }
 
   /* ── THEME TOGGLE ── */
   .theme-toggle {
     width: 36px;
     height: 36px;
-    background: var(--border);
+    background: rgba(var(--accent-rgb), 0.1);
     border-radius: 50%;
     border: none;
-    cursor: none !important;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -254,7 +284,10 @@
     position: relative;
     color: var(--fg);
   }
-  .theme-toggle:hover { transform: rotate(30deg); }
+  .theme-toggle:hover {
+    background: rgba(var(--accent-rgb), 0.2);
+    transform: rotate(30deg);
+  }
   .theme-toggle .icon-sun,
   .theme-toggle .icon-moon {
     position: absolute;
@@ -1060,9 +1093,9 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
-    nav { padding: 20px 24px; }
-    nav.scrolled { padding: 12px 24px; }
-    .nav-links { gap: 20px; }
+    nav { padding: 16px 16px; }
+    .nav-pill { padding: 6px 8px; gap: 4px; }
+    .nav-links a { padding: 6px 10px; font-size: 11px; }
     .hero { padding: 0 24px 60px; }
     .hero-name { font-size: clamp(42px, 12vw, 80px) !important; }
     .hero-meta { flex-direction: column; align-items: flex-start; }
@@ -1082,12 +1115,11 @@
     .stats-row { gap: 36px; }
   }
   @media (max-width: 600px) {
-    nav, nav.scrolled { padding-left: 16px; padding-right: 16px; }
+    nav { padding: 12px 12px; }
+    .nav-pill { padding: 5px 6px; gap: 2px; }
     .nav-name { font-size: 13px; }
-    .nav-links { gap: 8px; }
-    .nav-links a { font-size: 10px; }
-    nav > div { gap: 8px !important; }
-    .theme-toggle { width: 32px; height: 32px; }
+    .nav-links a { padding: 5px 8px; font-size: 10px; letter-spacing: 0; }
+    .theme-toggle { width: 30px; height: 30px; }
   }
 </style>
 <link rel="stylesheet" href="design-systems-3d.css">
@@ -1105,12 +1137,13 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-name">DT</a>
-  <div style="display:flex;align-items:center;gap:24px">
+  <div class="nav-pill">
     <ul class="nav-links">
-      <li><a href="#projects">Work</a></li>
-      <li><a href="#design-systems">Design Systems</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#hero" data-section="hero">Home</a></li>
+      <li><a href="#projects" data-section="projects">Work</a></li>
+      <li><a href="#design-systems" data-section="design-systems">DS</a></li>
+      <li><a href="#about" data-section="about">About</a></li>
+      <li><a href="#contact" data-section="contact">Contact</a></li>
     </ul>
     <button class="theme-toggle" id="theme-toggle" onclick="window.__toggleTheme()">
       <i data-lucide="sun" class="icon-sun" style="width:16px;height:16px"></i>
@@ -1623,6 +1656,62 @@ document.addEventListener('keydown', e => {
       body.style.setProperty('--card-border', vars.cardBorder);
     }
   };
+})();
+</script>
+
+<!-- Scroll-based section highlighting -->
+<script>
+(function() {
+  var sections = ['hero', 'projects', 'design-systems', 'about', 'contact'];
+  var links = document.querySelectorAll('.nav-links a[data-section]');
+
+  function setActive(id) {
+    links.forEach(function(link) {
+      link.classList.toggle('active', link.getAttribute('data-section') === id);
+    });
+  }
+
+  // Scroll-based highlighting using getBoundingClientRect
+  function updateActive() {
+    var scrollY = window.scrollY || window.pageYOffset;
+    var winH = window.innerHeight;
+    var current = sections[0];
+
+    for (var i = sections.length - 1; i >= 0; i--) {
+      var el = document.getElementById(sections[i]);
+      if (el && el.offsetTop - winH * 0.4 <= scrollY) {
+        current = sections[i];
+        break;
+      }
+    }
+    setActive(current);
+  }
+
+  // Throttled scroll listener
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        updateActive();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Smooth scroll for nav links
+  links.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Set initial active state
+  updateActive();
 })();
 </script>
 
