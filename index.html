@@ -1714,6 +1714,28 @@ document.addEventListener('keydown', e => {
 })();
 </script>
 
+<!-- Track company parameter for analytics -->
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var company = params.get('company');
+
+  if (company) {
+    // Contentsquare — track company as dynamic variable
+    window._uxa = window._uxa || [];
+    window._uxa.push(['trackDynamicVariable', { key: 'company', value: company }]);
+
+    // Hotjar — trigger event with company name
+    if (typeof hj === 'function') {
+      hj('event', 'company_visit_' + company);
+    }
+
+    // Store in sessionStorage for cross-page tracking
+    sessionStorage.setItem('portfolio_company', company);
+  }
+})();
+</script>
+
 <!-- CURSOR FOLLOWER -->
 <script>
 (function() {
