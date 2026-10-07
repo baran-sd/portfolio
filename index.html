@@ -1175,7 +1175,7 @@
 
   <div class="project-list">
 
-    <div class="project-entry reveal reveal-delay-1">
+    <div class="project-entry reveal reveal-delay-1" data-project="uefa-predictors">
       <div class="project-item" onclick="toggleProject(this.parentElement)">
         <span class="project-num">01</span>
         <div class="project-info">
@@ -1204,7 +1204,7 @@
       </div>
     </div>
 
-    <div class="project-entry reveal reveal-delay-2">
+    <div class="project-entry reveal reveal-delay-2" data-project="fifa-world-cup">
       <div class="project-item" onclick="toggleProject(this.parentElement)">
         <span class="project-num">02</span>
         <div class="project-info">
@@ -1229,7 +1229,7 @@
       </div>
     </div>
 
-    <div class="project-entry reveal reveal-delay-3">
+    <div class="project-entry reveal reveal-delay-3" data-project="online-casinos">
       <div class="project-item" onclick="toggleProject(this.parentElement)">
         <span class="project-num">03</span>
         <div class="project-info">
@@ -1256,7 +1256,7 @@
       </div>
     </div>
 
-    <div class="project-entry reveal reveal-delay-4">
+    <div class="project-entry reveal reveal-delay-4" data-project="brand-identity">
       <div class="project-item" onclick="toggleProject(this.parentElement)">
         <span class="project-num">04</span>
         <div class="project-info">
@@ -1283,7 +1283,7 @@
       </div>
     </div>
 
-    <div class="project-entry reveal reveal-delay-4">
+    <div class="project-entry reveal reveal-delay-4" data-project="stake">
       <div class="project-item" onclick="toggleProject(this.parentElement)">
         <span class="project-num">05</span>
         <div class="project-info">
@@ -1308,7 +1308,7 @@
       </div>
     </div>
 
-    <div class="project-entry reveal reveal-delay-6">
+    <div class="project-entry reveal reveal-delay-6" data-project="design-systems">
       <div class="project-item" onclick="toggleProject(this.parentElement)">
         <span class="project-num">06</span>
         <div class="project-info">
@@ -1464,6 +1464,44 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+const pendingPortfolioSteps = [];
+let portfolioTagReady = false;
+window._uxa = window._uxa || [];
+window._uxa.push(['afterPageView', function(context) {
+  if (portfolioTagReady || context.pageViewType !== 'n') return;
+  portfolioTagReady = true;
+  pendingPortfolioSteps.splice(0).forEach(function(item) {
+    trackPortfolioStep(item.step, item.eventName);
+  });
+}]);
+
+function trackPortfolioStep(step, eventName) {
+  if (!portfolioTagReady) {
+    pendingPortfolioSteps.push({ step, eventName });
+    return;
+  }
+  window._uxa.push(['trackPageview', '/portfolio/' + step, { lifespan: 'onNextPageviewOnly' }]);
+  if (eventName) window._uxa.push(['trackPageEvent', eventName]);
+}
+
+let projectsViewTracked = false;
+function trackProjectsView() {
+  if (projectsViewTracked) return;
+  projectsViewTracked = true;
+  trackPortfolioStep('projects');
+}
+
+const projectsHeading = document.querySelector('#projects .section-header');
+if (projectsHeading) {
+  const projectsObserver = new IntersectionObserver((entries) => {
+    if (entries.some(entry => entry.isIntersecting)) {
+      trackProjectsView();
+      projectsObserver.disconnect();
+    }
+  }, { threshold: 0.2 });
+  projectsObserver.observe(projectsHeading);
+}
+
 // Nav scroll effect
 const navEl = document.querySelector('nav');
 let lastScroll = 0;
@@ -1486,6 +1524,11 @@ function toggleProject(entry) {
   document.querySelectorAll('.project-entry.open').forEach(e => e.classList.remove('open'));
   if (wasOpen) return;
   entry.classList.add('open');
+  trackProjectsView();
+  const project = entry.dataset.project;
+  if (project) {
+    trackPortfolioStep('project/' + project, 'project_opened_' + project);
+  }
   const nav = document.querySelector('nav');
   nav.classList.add('scrolled');
   const started = performance.now();
@@ -1843,6 +1886,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Contentsquare event
         window._uxa = window._uxa || [];
         window._uxa.push(['trackDynamicVariable', { key: 'form_submitted', value: 'design_system_enquiry' }]);
+        trackPortfolioStep('enquiry-success');
       } else {
         // Error — show inline error
         response.json().then(function(data) {
