@@ -1438,11 +1438,11 @@
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <div class="reveal">
-    <a href="mailto:trojanster@gmail.com" class="contact-cta">Let's talk</a>
+    <a href="mailto:trojanster@gmail.com" class="contact-cta" data-contact-event="contact_email_clicked">Let's talk</a>
   </div>
   <div class="contact-links reveal reveal-delay-2">
-    <a href="https://www.linkedin.com/in/denis-trojan-19489392/" class="contact-link" target="_blank">LinkedIn</a>
-    <a href="mailto:trojanster@gmail.com" class="contact-link">trojanster@gmail.com</a>
+    <a href="https://www.linkedin.com/in/denis-trojan-19489392/" class="contact-link" target="_blank" rel="noopener noreferrer" data-contact-event="contact_linkedin_clicked">LinkedIn</a>
+    <a href="mailto:trojanster@gmail.com" class="contact-link" data-contact-event="contact_email_clicked">trojanster@gmail.com</a>
   </div>
 </section>
 
@@ -1493,6 +1493,13 @@ function trackPortfolioStep(step, eventName) {
   window._uxa.push(['trackPageview', '/portfolio/' + step, { lifespan: 'onNextPageviewOnly' }]);
   if (eventName) window._uxa.push(['trackPageEvent', eventName]);
 }
+
+document.addEventListener('click', function(event) {
+  const link = event.target.closest('a[data-contact-event]');
+  if (!link) return;
+  window._uxa = window._uxa || [];
+  window._uxa.push(['trackPageEvent', link.dataset.contactEvent]);
+});
 
 let projectsViewTracked = false;
 function trackProjectsView() {
