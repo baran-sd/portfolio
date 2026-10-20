@@ -1039,8 +1039,10 @@
 
   .lightbox:not([open]) { display: none; }
   .lightbox.open { opacity: 1; pointer-events: auto; }
-  .lightbox { cursor: auto !important; }
-  .lightbox button { cursor: pointer !important; }
+  .lightbox, .lightbox button { cursor: none !important; }
+  .lightbox .cursor-dot { background: var(--lightbox-fg); }
+  .lightbox .cursor-ring { border-color: var(--lightbox-control-hover-border); }
+  .lightbox .cursor-dot.hovering::after { color: var(--lightbox-fg); }
 
   .lightbox-stage {
     max-width: 100%;
@@ -1650,6 +1652,8 @@ function scrollGallery(btn, dir) {
 let lbSlides = [], lbIndex = 0, lastLightboxTrigger = null, previousBodyOverflow = '';
 const lbEl = document.getElementById('lightbox');
 const lbStage = document.getElementById('lightbox-stage');
+const lbCursorDot = document.getElementById('cursor-dot');
+const lbCursorRing = document.getElementById('cursor-ring');
 
 document.querySelectorAll('.gallery-slide').forEach(slide => {
   slide.addEventListener('click', () => {
@@ -1661,6 +1665,9 @@ document.querySelectorAll('.gallery-slide').forEach(slide => {
     renderLightbox();
     previousBodyOverflow = document.body.style.overflow;
     lbEl.showModal();
+    lbCursorDot.classList.remove('hovering');
+    lbCursorRing.classList.remove('hovering');
+    lbEl.append(lbCursorDot, lbCursorRing);
     lbEl.classList.add('open');
     lbEl.querySelector('.lightbox-close').focus();
     window.portfolioLenis?.stop();
@@ -1684,6 +1691,7 @@ function closeLightbox() {
 }
 
 lbEl.addEventListener('close', () => {
+  document.body.append(lbCursorDot, lbCursorRing);
   lbEl.classList.remove('open');
   document.body.style.overflow = previousBodyOverflow;
   window.portfolioLenis?.start();
