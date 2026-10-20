@@ -436,6 +436,12 @@
   }
 
   .project-item {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--fg);
+    font: inherit;
+    text-align: left;
     display: grid;
     grid-template-columns: 64px 1fr auto auto;
     align-items: center;
@@ -448,11 +454,21 @@
     user-select: none;
   }
 
+  .project-item:focus-visible,
+  .gallery-slide:focus-visible,
+  .gallery-btn:focus-visible,
+  .lightbox button:focus-visible,
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
   .project-list:hover .project-entry {
     opacity: 0.35;
   }
 
-  .project-list:hover .project-entry:hover {
+  .project-list:hover .project-entry:hover,
+  .project-list:hover .project-entry:focus-within {
     opacity: 1;
   }
 
@@ -488,6 +504,10 @@
   .gallery-track::-webkit-scrollbar { display: none; }
 
   .gallery-slide {
+    border: 0;
+    padding: 0;
+    color: inherit;
+    font: inherit;
     flex: 0 0 auto;
     width: max-content;
     height: 460px;
@@ -985,6 +1005,13 @@
 
   /* ── LIGHTBOX ── */
   .lightbox {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    color: var(--fg);
     position: fixed;
     inset: 0;
     z-index: 200;
@@ -1001,6 +1028,7 @@
     transition: opacity 0.35s ease;
   }
 
+  .lightbox:not([open]) { display: none; }
   .lightbox.open { opacity: 1; pointer-events: auto; }
 
   .lightbox-stage {
@@ -1160,7 +1188,7 @@
       <li><a href="#about" data-section="about">About</a></li>
       <li><a href="#contact" data-section="contact">Contact</a></li>
     </ul>
-    <button class="theme-toggle" id="theme-toggle" onclick="window.__toggleTheme()">
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" onclick="window.__toggleTheme()">
       <i data-lucide="sun" class="icon-sun" style="width:16px;height:16px"></i>
       <i data-lucide="moon" class="icon-moon" style="width:16px;height:16px"></i>
     </button>
@@ -1193,28 +1221,28 @@
   <div class="project-list">
 
     <div class="project-entry reveal reveal-delay-1" data-project="uefa-predictors">
-      <div class="project-item" onclick="toggleProject(this.parentElement)">
+      <button class="project-item" type="button" aria-expanded="false" aria-controls="project-gallery-1" onclick="toggleProject(this.closest('.project-entry'))">
         <span class="project-num">01</span>
-        <div class="project-info">
+        <span class="project-info">
           <span class="project-name">UEFA Predictors</span>
           <span class="project-desc">Fan engagement tools — bracket predictions, match predictions and live tournament tracking for European football</span>
-        </div>
+        </span>
         <span class="project-tag">Product Design</span>
-        <span class="project-toggle"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
-      </div>
-      <div class="project-gallery">
+        <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
+      </button>
+      <div class="project-gallery" id="project-gallery-1" inert>
         <div class="gallery-inner">
           <div class="gallery-track">
-            <div class="gallery-slide"><img src="images/uefa/01.webp" alt="UEFA UCL Predictor"></div>
-            <div class="gallery-slide"><img src="images/uefa/02.webp" alt="UEFA Match Predictions"></div>
-            <div class="gallery-slide"><img src="images/uefa/03.webp" alt="UEFA Score Input"></div>
-            <div class="gallery-slide"><img src="images/uefa/04.webp" alt="UEFA Player Selection"></div>
-            <div class="gallery-slide"><img src="images/uefa/05.webp" alt="UEFA Dashboard"></div>
-            <div class="gallery-slide"><img src="images/uefa-tournament/01.webp" alt="UEFA Tournament Predictor"></div>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA UCL Predictor"><img src="images/uefa/01.webp" alt="UEFA UCL Predictor"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Match Predictions"><img src="images/uefa/02.webp" alt="UEFA Match Predictions"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Score Input"><img src="images/uefa/03.webp" alt="UEFA Score Input"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Player Selection"><img src="images/uefa/04.webp" alt="UEFA Player Selection"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Dashboard"><img src="images/uefa/05.webp" alt="UEFA Dashboard"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Tournament Predictor"><img src="images/uefa-tournament/01.webp" alt="UEFA Tournament Predictor"></button>
           </div>
           <div class="gallery-nav">
-            <button class="gallery-btn" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
-            <button class="gallery-btn" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Previous image" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Next image" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
             <span class="gallery-counter">6 images</span>
           </div>
         </div>
@@ -1222,24 +1250,24 @@
     </div>
 
     <div class="project-entry reveal reveal-delay-2" data-project="fifa-world-cup">
-      <div class="project-item" onclick="toggleProject(this.parentElement)">
+      <button class="project-item" type="button" aria-expanded="false" aria-controls="project-gallery-2" onclick="toggleProject(this.closest('.project-entry'))">
         <span class="project-num">02</span>
-        <div class="project-info">
+        <span class="project-info">
           <span class="project-name">FIFA World Cup</span>
           <span class="project-desc">Tournament companion built around groups, brackets and rivalries</span>
-        </div>
+        </span>
         <span class="project-tag">Product &middot; Brand</span>
-        <span class="project-toggle"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
-      </div>
-      <div class="project-gallery">
+        <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
+      </button>
+      <div class="project-gallery" id="project-gallery-2" inert>
         <div class="gallery-inner">
           <div class="gallery-track">
-            <div class="gallery-slide"><img src="images/fifa/01.webp" alt="FIFA World Cup"></div>
-            <div class="gallery-slide"><img src="images/fifa/02.webp" alt="FIFA Tournament"></div>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: FIFA World Cup"><img src="images/fifa/01.webp" alt="FIFA World Cup"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: FIFA Tournament"><img src="images/fifa/02.webp" alt="FIFA Tournament"></button>
           </div>
           <div class="gallery-nav">
-            <button class="gallery-btn" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
-            <button class="gallery-btn" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Previous image" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Next image" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
             <span class="gallery-counter">2 images</span>
           </div>
         </div>
@@ -1247,26 +1275,26 @@
     </div>
 
     <div class="project-entry reveal reveal-delay-3" data-project="online-casinos">
-      <div class="project-item" onclick="toggleProject(this.parentElement)">
+      <button class="project-item" type="button" aria-expanded="false" aria-controls="project-gallery-3" onclick="toggleProject(this.closest('.project-entry'))">
         <span class="project-num">03</span>
-        <div class="project-info">
+        <span class="project-info">
           <span class="project-name">Online Casinos</span>
           <span class="project-desc">Casino platform design with focus on trust, engagement and responsible gaming</span>
-        </div>
+        </span>
         <span class="project-tag">Product Design &middot; Design System</span>
-        <span class="project-toggle"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
-      </div>
-      <div class="project-gallery">
+        <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
+      </button>
+      <div class="project-gallery" id="project-gallery-3" inert>
         <div class="gallery-inner">
           <div class="gallery-track">
-            <div class="gallery-slide"><img src="images/Online Casinos/01.webp" alt="Casino Lobby"></div>
-            <div class="gallery-slide"><img src="images/Online Casinos/02.webp" alt="Casino Game"></div>
-            <div class="gallery-slide"><img src="images/Online Casinos/03.webp" alt="Casino Mobile"></div>
-            <div class="gallery-slide"><img src="images/Online Casinos/04.webp" alt="Siete Casino"></div>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: Casino Lobby"><img src="images/Online Casinos/01.webp" alt="Casino Lobby"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: Casino Game"><img src="images/Online Casinos/02.webp" alt="Casino Game"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: Casino Mobile"><img src="images/Online Casinos/03.webp" alt="Casino Mobile"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: Siete Casino"><img src="images/Online Casinos/04.webp" alt="Siete Casino"></button>
           </div>
           <div class="gallery-nav">
-            <button class="gallery-btn" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
-            <button class="gallery-btn" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Previous image" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Next image" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
             <span class="gallery-counter">4 images</span>
           </div>
         </div>
@@ -1274,26 +1302,26 @@
     </div>
 
     <div class="project-entry reveal reveal-delay-4" data-project="brand-identity">
-      <div class="project-item" onclick="toggleProject(this.parentElement)">
+      <button class="project-item" type="button" aria-expanded="false" aria-controls="project-gallery-4" onclick="toggleProject(this.closest('.project-entry'))">
         <span class="project-num">04</span>
-        <div class="project-info">
+        <span class="project-info">
           <span class="project-name">Brand Identity</span>
           <span class="project-desc">Logo systems and visual identity for sports and fintech brands</span>
-        </div>
+        </span>
         <span class="project-tag">Branding</span>
-        <span class="project-toggle"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
-      </div>
-      <div class="project-gallery">
+        <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
+      </button>
+      <div class="project-gallery" id="project-gallery-4" inert>
         <div class="gallery-inner">
           <div class="gallery-track">
-            <div class="gallery-slide"><img src="images/logos/01.webp" alt="Logo Design"></div>
-            <div class="gallery-slide"><img src="images/logos/02.webp" alt="Brand Identity"></div>
-            <div class="gallery-slide"><img src="images/logos/03.webp" alt="QAMIGOS Logo"></div>
-            <div class="gallery-slide"><img src="images/logos/04.webp" alt="zelas Logo"></div>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: Logo Design"><img src="images/logos/01.webp" alt="Logo Design"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: Brand Identity"><img src="images/logos/02.webp" alt="Brand Identity"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: QAMIGOS Logo"><img src="images/logos/03.webp" alt="QAMIGOS Logo"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: zelas Logo"><img src="images/logos/04.webp" alt="zelas Logo"></button>
           </div>
           <div class="gallery-nav">
-            <button class="gallery-btn" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
-            <button class="gallery-btn" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Previous image" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Next image" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
             <span class="gallery-counter">4 images</span>
           </div>
         </div>
@@ -1301,24 +1329,24 @@
     </div>
 
     <div class="project-entry reveal reveal-delay-4" data-project="stake">
-      <div class="project-item" onclick="toggleProject(this.parentElement)">
+      <button class="project-item" type="button" aria-expanded="false" aria-controls="project-gallery-5" onclick="toggleProject(this.closest('.project-entry'))">
         <span class="project-num">05</span>
-        <div class="project-info">
+        <span class="project-info">
           <span class="project-name">Stake</span>
           <span class="project-desc">Sports betting and casino platform — app and web, live odds and casino lobby</span>
-        </div>
+        </span>
         <span class="project-tag">Product Design</span>
-        <span class="project-toggle"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
-      </div>
-      <div class="project-gallery">
+        <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
+      </button>
+      <div class="project-gallery" id="project-gallery-5" inert>
         <div class="gallery-inner">
           <div class="gallery-track">
-            <div class="gallery-slide"><img src="images/stake/01.webp" alt="Stake App"></div>
-            <div class="gallery-slide"><img src="images/stake/02.webp" alt="Stake Casino Games"></div>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: Stake App"><img src="images/stake/01.webp" alt="Stake App"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: Stake Casino Games"><img src="images/stake/02.webp" alt="Stake Casino Games"></button>
           </div>
           <div class="gallery-nav">
-            <button class="gallery-btn" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
-            <button class="gallery-btn" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Previous image" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Next image" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
             <span class="gallery-counter">2 images</span>
           </div>
         </div>
@@ -1326,25 +1354,25 @@
     </div>
 
     <div class="project-entry reveal reveal-delay-6" data-project="design-systems">
-      <div class="project-item" onclick="toggleProject(this.parentElement)">
+      <button class="project-item" type="button" aria-expanded="false" aria-controls="project-gallery-6" onclick="toggleProject(this.closest('.project-entry'))">
         <span class="project-num">06</span>
-        <div class="project-info">
+        <span class="project-info">
           <span class="project-name">Design Systems</span>
           <span class="project-desc">Scalable variable-driven UI framework for multi-theme gaming platforms with responsive layouts and global localization</span>
-        </div>
+        </span>
         <span class="project-tag">Design System</span>
-        <span class="project-toggle"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
-      </div>
-      <div class="project-gallery">
+        <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
+      </button>
+      <div class="project-gallery" id="project-gallery-6" inert>
         <div class="gallery-inner">
           <div class="gallery-track">
-            <div class="gallery-slide"><img src="images/design-systems/01.webp" alt="Casino Design System Web"></div>
-            <div class="gallery-slide"><img src="images/design-systems/02.webp" alt="Bracket Predictor Design System"></div>
-            <div class="gallery-slide"><img src="images/design-systems/03.webp" alt="Casino Design System Mobile"></div>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: Casino Design System Web"><img src="images/design-systems/01.webp" alt="Casino Design System Web"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: Bracket Predictor Design System"><img src="images/design-systems/02.webp" alt="Bracket Predictor Design System"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: Casino Design System Mobile"><img src="images/design-systems/03.webp" alt="Casino Design System Mobile"></button>
           </div>
           <div class="gallery-nav">
-            <button class="gallery-btn" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
-            <button class="gallery-btn" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Previous image" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
+            <button class="gallery-btn" type="button" aria-label="Next image" onclick="scrollGallery(this, 1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
             <span class="gallery-counter">3 images</span>
           </div>
         </div>
@@ -1460,13 +1488,13 @@
 </footer>
 
 <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
-  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="3" x2="13" y2="13"></line><line x1="13" y1="3" x2="3" y2="13"></line></svg></button>
-  <button class="lightbox-btn lb-prev" onclick="stepLightbox(-1)" aria-label="Previous"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
-  <button class="lightbox-btn lb-next" onclick="stepLightbox(1)" aria-label="Next"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
+<dialog class="lightbox" id="lightbox" aria-labelledby="lb-project" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" type="button" onclick="closeLightbox()" aria-label="Close image preview"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="3" x2="13" y2="13"></line><line x1="13" y1="3" x2="3" y2="13"></line></svg></button>
+  <button class="lightbox-btn lb-prev" type="button" onclick="stepLightbox(-1)" aria-label="Previous image"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
+  <button class="lightbox-btn lb-next" type="button" onclick="stepLightbox(1)" aria-label="Next image"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6,3 11,8 6,13"></polyline></svg></button>
   <div class="lightbox-stage" id="lightbox-stage"></div>
   <div class="lightbox-meta"><span class="lb-project" id="lb-project"></span><span id="lb-counter"></span></div>
-</div>
+</dialog>
 
 <!-- SCRIPTS -->
 <script src="vendor/lenis-1.3.26.min.js"></script>
@@ -1554,9 +1582,15 @@ function toggleProject(entry) {
   cancelAnimationFrame(projectScrollFrame);
   const wasOpen = entry.classList.contains('open');
   const initialTop = entry.getBoundingClientRect().top;
-  document.querySelectorAll('.project-entry.open').forEach(e => e.classList.remove('open'));
+  document.querySelectorAll('.project-entry.open').forEach(e => {
+    e.classList.remove('open');
+    e.querySelector('.project-item').setAttribute('aria-expanded', 'false');
+    e.querySelector('.project-gallery').inert = true;
+  });
   if (wasOpen) return;
   entry.classList.add('open');
+  entry.querySelector('.project-item').setAttribute('aria-expanded', 'true');
+  entry.querySelector('.project-gallery').inert = false;
   trackProjectsView();
   const project = entry.dataset.project;
   if (project) {
@@ -1598,18 +1632,22 @@ function scrollGallery(btn, dir) {
 }
 
 // Lightbox
-let lbSlides = [], lbIndex = 0;
+let lbSlides = [], lbIndex = 0, lastLightboxTrigger = null, previousBodyOverflow = '';
 const lbEl = document.getElementById('lightbox');
 const lbStage = document.getElementById('lightbox-stage');
 
 document.querySelectorAll('.gallery-slide').forEach(slide => {
   slide.addEventListener('click', () => {
     const entry = slide.closest('.project-entry');
+    lastLightboxTrigger = slide;
     lbSlides = [...entry.querySelectorAll('.gallery-slide')];
     lbIndex = lbSlides.indexOf(slide);
     document.getElementById('lb-project').textContent = entry.querySelector('.project-name').textContent;
     renderLightbox();
+    previousBodyOverflow = document.body.style.overflow;
+    lbEl.showModal();
     lbEl.classList.add('open');
+    lbEl.querySelector('.lightbox-close').focus();
     window.portfolioLenis?.stop();
     document.body.style.overflow = 'hidden';
   });
@@ -1626,14 +1664,18 @@ function stepLightbox(dir) {
 }
 
 function closeLightbox() {
-  lbEl.classList.remove('open');
-  document.body.style.overflow = '';
-  window.portfolioLenis?.start();
+  if (lbEl.open) lbEl.close();
 }
 
+lbEl.addEventListener('close', () => {
+  lbEl.classList.remove('open');
+  document.body.style.overflow = previousBodyOverflow;
+  window.portfolioLenis?.start();
+  lastLightboxTrigger?.focus();
+});
+
 document.addEventListener('keydown', e => {
-  if (!lbEl.classList.contains('open')) return;
-  if (e.key === 'Escape') closeLightbox();
+  if (!lbEl.open) return;
   if (e.key === 'ArrowRight') stepLightbox(1);
   if (e.key === 'ArrowLeft') stepLightbox(-1);
 });
@@ -1702,6 +1744,9 @@ document.addEventListener('keydown', e => {
 
   // Apply light class
   if (mode === 'light') document.body.classList.add('light');
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle.setAttribute('aria-pressed', String(mode === 'light'));
+  themeToggle.setAttribute('aria-label', mode === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
 
   // Apply company theme via CSS custom properties on body (inline = highest priority)
   if (company && THEMES[company]) {
@@ -1732,6 +1777,8 @@ document.addEventListener('keydown', e => {
     document.body.classList.toggle('light');
     const newMode = document.body.classList.contains('light') ? 'light' : 'dark';
     localStorage.setItem('theme', newMode);
+    themeToggle.setAttribute('aria-pressed', String(newMode === 'light'));
+    themeToggle.setAttribute('aria-label', newMode === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
     // Re-apply company theme if set
     const co = new URLSearchParams(window.location.search).get('company');
     if (co && THEMES[co]) {
