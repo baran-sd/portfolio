@@ -84,9 +84,6 @@
     --lightbox-fg: #f7f6f4;
     --lightbox-muted: #b7b2ad;
     --lightbox-control-bg: #1e1d1b;
-    --lightbox-control-border: #8c6b4d;
-    --lightbox-control-hover-bg: #3b3027;
-    --lightbox-control-hover-border: #c4956a;
   }
   body.light {
     --bg: #f5f3ef;
@@ -1014,6 +1011,9 @@
 
   /* ── LIGHTBOX ── */
   .lightbox {
+    --lightbox-control-border: color-mix(in srgb, var(--accent) 60%, var(--lightbox-fg));
+    --lightbox-control-hover-bg: color-mix(in srgb, var(--accent) 24%, var(--lightbox-control-bg));
+    --lightbox-control-hover-border: var(--lightbox-fg);
     width: 100vw;
     height: 100dvh;
     max-width: none;
