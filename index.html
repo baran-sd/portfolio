@@ -463,7 +463,6 @@
   .project-item:focus-visible,
   .gallery-slide:focus-visible,
   .gallery-btn:focus-visible,
-  .lightbox button:focus-visible,
   .theme-toggle:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 4px;
@@ -1011,9 +1010,8 @@
 
   /* ── LIGHTBOX ── */
   .lightbox {
-    --lightbox-control-border: color-mix(in srgb, var(--accent) 60%, var(--lightbox-fg));
     --lightbox-control-hover-bg: color-mix(in srgb, var(--accent) 24%, var(--lightbox-control-bg));
-    --lightbox-control-hover-border: var(--lightbox-fg);
+    --lightbox-control-focus-bg: color-mix(in srgb, var(--accent) 48%, var(--lightbox-control-bg));
     width: 100vw;
     height: 100dvh;
     max-width: none;
@@ -1041,6 +1039,7 @@
   .lightbox.open { opacity: 1; pointer-events: auto; }
   .lightbox { cursor: auto !important; }
   .lightbox button { cursor: pointer !important; }
+  .lightbox button:focus-visible { outline: none; background: var(--lightbox-control-focus-bg); }
 
   .lightbox-stage {
     max-width: 100%;
@@ -1091,17 +1090,17 @@
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    border: 1px solid var(--lightbox-control-border);
+    border: 0;
     background: var(--lightbox-control-bg);
     color: var(--lightbox-fg);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.3s, background 0.3s;
+    transition: background 0.3s;
   }
 
-  .lightbox-btn:hover { border-color: var(--lightbox-control-hover-border); background: var(--lightbox-control-hover-bg); }
+  .lightbox-btn:hover { background: var(--lightbox-control-hover-bg); }
   .lightbox-btn svg { width: 18px; height: 18px; }
   .lb-prev { left: 24px; }
   .lb-next { right: 24px; }
@@ -1113,17 +1112,17 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    border: 1px solid var(--lightbox-control-border);
+    border: 0;
     background: var(--lightbox-control-bg);
     color: var(--lightbox-fg);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.3s, background 0.3s;
+    transition: background 0.3s;
   }
 
-  .lightbox-close:hover { border-color: var(--lightbox-control-hover-border); background: var(--lightbox-control-hover-bg); }
+  .lightbox-close:hover { background: var(--lightbox-control-hover-bg); }
   .lightbox-close svg { width: 16px; height: 16px; }
 
   /* ── SCROLL REVEAL ── */
