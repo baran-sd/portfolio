@@ -78,6 +78,15 @@
     --card-bg: rgba(255,255,255,0.03);
     --card-border: var(--border);
     --card-hover-border: var(--accent);
+
+    /* The image preview keeps its dark surface in both page themes. */
+    --lightbox-bg: rgba(6,6,5,0.94);
+    --lightbox-fg: #f7f6f4;
+    --lightbox-muted: #b7b2ad;
+    --lightbox-control-bg: #1e1d1b;
+    --lightbox-control-border: #8c6b4d;
+    --lightbox-control-hover-bg: #3b3027;
+    --lightbox-control-hover-border: #c4956a;
   }
   body.light {
     --bg: #f5f3ef;
@@ -1011,11 +1020,11 @@
     max-height: none;
     margin: 0;
     border: 0;
-    color: var(--fg);
+    color: var(--lightbox-fg);
     position: fixed;
     inset: 0;
     z-index: 200;
-    background: rgba(6,6,5,0.94);
+    background: var(--lightbox-bg);
     backdrop-filter: blur(8px);
     display: flex;
     flex-direction: column;
@@ -1068,12 +1077,12 @@
     font-size: 13px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--lightbox-muted);
     font-family: var(--font-display);
     flex-shrink: 0;
   }
 
-  .lightbox-meta .lb-project { color: var(--fg); }
+  .lightbox-meta .lb-project { color: var(--lightbox-fg); }
 
   .lightbox-btn {
     position: absolute;
@@ -1082,9 +1091,9 @@
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    border: 1px solid rgba(var(--accent-rgb), 0.18);
-    background: color-mix(in srgb, var(--bg) 60%, transparent);
-    color: var(--fg);
+    border: 1px solid var(--lightbox-control-border);
+    background: var(--lightbox-control-bg);
+    color: var(--lightbox-fg);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1092,7 +1101,7 @@
     transition: border-color 0.3s, background 0.3s;
   }
 
-  .lightbox-btn:hover { border-color: var(--btn-hover-border); background: rgba(var(--accent-rgb), 0.14); }
+  .lightbox-btn:hover { border-color: var(--lightbox-control-hover-border); background: var(--lightbox-control-hover-bg); }
   .lightbox-btn svg { width: 18px; height: 18px; }
   .lb-prev { left: 24px; }
   .lb-next { right: 24px; }
@@ -1104,9 +1113,9 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    border: 1px solid rgba(var(--accent-rgb), 0.18);
-    background: transparent;
-    color: var(--fg);
+    border: 1px solid var(--lightbox-control-border);
+    background: var(--lightbox-control-bg);
+    color: var(--lightbox-fg);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1114,7 +1123,7 @@
     transition: border-color 0.3s, background 0.3s;
   }
 
-  .lightbox-close:hover { border-color: var(--btn-hover-border); background: rgba(var(--accent-rgb), 0.14); }
+  .lightbox-close:hover { border-color: var(--lightbox-control-hover-border); background: var(--lightbox-control-hover-bg); }
   .lightbox-close svg { width: 16px; height: 16px; }
 
   /* ── SCROLL REVEAL ── */
