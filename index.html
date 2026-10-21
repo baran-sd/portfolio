@@ -63,7 +63,7 @@
     --btn-bg: var(--accent);
     --btn-text: var(--bg);
     --btn-border: var(--accent);
-    --btn-hover-bg: transparent;
+    --btn-hover-bg: var(--bg);
     --btn-hover-text: var(--accent);
     --btn-hover-border: var(--accent);
 
@@ -792,23 +792,6 @@
 
   .design-systems-submit {
     justify-self: start;
-    padding: 14px 28px;
-    border: 1px solid var(--btn-border);
-    border-radius: 100px;
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    font: 700 13px var(--font-display);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s, border-color 0.3s;
-  }
-
-  .design-systems-submit:hover,
-  .design-systems-submit:focus-visible {
-    background: var(--btn-hover-bg);
-    color: var(--btn-hover-text);
-    border-color: var(--btn-hover-border);
   }
 
   .ds-success-msg {
@@ -959,7 +942,7 @@
 
   .contact-link {
     font-size: 15px;
-    color: var(--muted);
+    color: color-mix(in srgb, var(--fg) 55%, var(--muted));
     letter-spacing: 0.02em;
     position: relative;
     padding-bottom: 2px;
@@ -986,6 +969,75 @@
     transform: scaleX(1);
     transform-origin: left;
     background: var(--fg);
+  }
+
+  /* Each letter rolls into its duplicate while words can still wrap. */
+  .project-name.is-rolling { --roll-row: 1.1em; }
+  .contact-cta.is-rolling { --roll-row: 1em; }
+  .design-systems-submit.is-rolling,
+  .ds-depth-button.is-rolling,
+  .design-systems-order-label.is-rolling { --roll-row: 1.2em; }
+
+  .is-rolling .roll-word {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .is-rolling .roll-letter {
+    display: inline-block;
+    height: var(--roll-row, 1.2em);
+    overflow: hidden;
+    vertical-align: top;
+  }
+
+  .is-rolling .roll-track {
+    display: flex;
+    flex-direction: column;
+    line-height: var(--roll-row, 1.2em);
+    transform: translateY(0);
+    transition: transform 380ms ease-in-out;
+  }
+
+  .contact-link.is-rolling:hover .roll-track,
+  .contact-link.is-rolling:focus-visible .roll-track,
+  .contact-cta.is-rolling:hover .roll-track,
+  .contact-cta.is-rolling:focus-visible .roll-track,
+  .design-systems-submit.is-rolling:hover .roll-track,
+  .design-systems-submit.is-rolling:focus-visible .roll-track,
+  .ds-depth-button.is-rolling:hover .roll-track,
+  .ds-depth-button.is-rolling:focus-visible .roll-track,
+  .design-systems-order:hover .design-systems-order-label.is-rolling .roll-track,
+  .design-systems-order:focus-visible .design-systems-order-label.is-rolling .roll-track,
+  .project-item:hover .project-name.is-rolling .roll-track,
+  .project-item:focus-visible .project-name.is-rolling .roll-track {
+    transform: translateY(calc(-1 * var(--roll-row, 1.2em)));
+    transition-delay: var(--roll-delay);
+  }
+
+  .contact-link.is-rolling:focus-visible,
+  .contact-cta.is-rolling:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 5px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .is-rolling .roll-track {
+      transition: none;
+    }
+    .contact-link.is-rolling:hover .roll-track,
+    .contact-link.is-rolling:focus-visible .roll-track,
+    .contact-cta.is-rolling:hover .roll-track,
+    .contact-cta.is-rolling:focus-visible .roll-track,
+    .design-systems-submit.is-rolling:hover .roll-track,
+    .design-systems-submit.is-rolling:focus-visible .roll-track,
+    .ds-depth-button.is-rolling:hover .roll-track,
+    .ds-depth-button.is-rolling:focus-visible .roll-track,
+    .design-systems-order:hover .design-systems-order-label.is-rolling .roll-track,
+    .design-systems-order:focus-visible .design-systems-order-label.is-rolling .roll-track,
+    .project-item:hover .project-name.is-rolling .roll-track,
+    .project-item:focus-visible .project-name.is-rolling .roll-track {
+      transform: none;
+    }
   }
 
   /* ── FOOTER ── */
@@ -1402,7 +1454,7 @@
     <div class="design-systems-message reveal">
       <h2 class="design-systems-headline" id="design-systems-title">Stop redesigning. Start scaling.</h2>
       <p class="design-systems-description">A design system gives your team one clear visual language: distinctive foundations, reusable components, and practical guidelines. Build faster while every experience stays true to your brand.</p>
-      <a class="design-systems-order" href="#design-system-contact">ORDER A DESIGN SYSTEM <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+      <a class="design-systems-action design-systems-order" href="#design-system-contact"><span class="design-systems-order-label">ORDER A DESIGN SYSTEM</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
       <p class="design-systems-scope">Brand foundations / UI library / Team guidelines</p>
     </div>
     <div class="ds-stage" data-node-id="Pjyzw" aria-label="Interactive three-dimensional design system preview"><div class="ds-rig"><div class="ds-plate ds-deep"></div><div class="ds-plate ds-back"></div><div class="ds-plate"></div><div class="ds-layer ds-heading"><span>SYSTEM / 01</span><span>FOUNDATIONS</span></div><div class="ds-layer ds-divider"></div><div class="ds-layer ds-specimen">Aa</div><div class="ds-layer ds-caption">One type scale. Consistent decisions.</div><div class="ds-layer ds-tokens"><div class="ds-token" style="--z:0px"><div class="ds-swatch"></div><small>INK</small></div><div class="ds-token" style="--z:8px"><div class="ds-swatch"></div><small>SURFACE</small></div><div class="ds-token" style="--z:16px"><div class="ds-swatch"></div><small>ACCENT</small></div><div class="ds-token" style="--z:24px"><div class="ds-swatch"></div><small>PAPER</small></div></div><div class="ds-layer ds-preview-footer">TOKENS · COMPONENTS · GUIDELINES</div></div><div class="ds-stage-hint">Move your cursor to explore depth <span aria-hidden="true">·</span> <button class="ds-depth-button" type="button" aria-pressed="true">3D on</button></div></div>
@@ -1451,7 +1503,7 @@
         <label for="ds-message">Message</label>
         <textarea id="ds-message" name="message" placeholder="Tell me about your product and goals" data-fs-field required></textarea>
       </div>
-      <button class="design-systems-submit" type="submit" data-fs-submit-btn>SEND ENQUIRY</button>
+      <button class="design-systems-action design-systems-submit" type="submit" data-fs-submit-btn>SEND ENQUIRY</button>
     </form>
   </div>
 </section>
@@ -1515,6 +1567,52 @@ window.portfolioLenis = window.Lenis && new Lenis({
   anchors: true,
   lerp: 0.09,
   syncTouch: false
+});
+
+// Keep the original text as a fallback if scripts are unavailable.
+window.setRollingText = (element, label = element.textContent) => {
+  const letters = document.createElement('span');
+  letters.setAttribute('aria-hidden', 'true');
+  let letterIndex = 0;
+
+  label.split(/(\s+)/).forEach(part => {
+    if (/^\s+$/.test(part)) {
+      letters.append(document.createTextNode(part));
+      letterIndex += part.length;
+      return;
+    }
+    const word = document.createElement('span');
+    word.className = 'roll-word';
+    Array.from(part).forEach(character => {
+      const letterWindow = document.createElement('span');
+      const track = document.createElement('span');
+      letterWindow.className = 'roll-letter';
+      track.className = 'roll-track';
+      track.style.setProperty('--roll-delay', `${letterIndex++ * 18}ms`);
+      for (let copy = 0; copy < 2; copy++) {
+        const glyph = document.createElement('span');
+        glyph.textContent = character;
+        track.append(glyph);
+      }
+      letterWindow.append(track);
+      word.append(letterWindow);
+    });
+    letters.append(word);
+  });
+
+  if (element.classList.contains('project-name')) {
+    element.dataset.title = label;
+    element.closest('.project-item').setAttribute('aria-label', label);
+  } else if (element.classList.contains('design-systems-order-label')) {
+    element.closest('.design-systems-order').setAttribute('aria-label', label);
+  } else {
+    element.setAttribute('aria-label', label);
+  }
+  element.replaceChildren(letters);
+  element.classList.add('is-rolling');
+};
+document.querySelectorAll('.contact-link, .contact-cta, .project-name, .design-systems-submit, .ds-depth-button, .design-systems-order-label').forEach(element => {
+  window.setRollingText(element);
 });
 
 // Scroll reveal
@@ -1656,7 +1754,7 @@ document.querySelectorAll('.gallery-slide').forEach(slide => {
     lastLightboxTrigger = slide;
     lbSlides = [...entry.querySelectorAll('.gallery-slide')];
     lbIndex = lbSlides.indexOf(slide);
-    document.getElementById('lb-project').textContent = entry.querySelector('.project-name').textContent;
+    document.getElementById('lb-project').textContent = entry.querySelector('.project-name').dataset.title;
     renderLightbox();
     previousBodyOverflow = document.body.style.overflow;
     lbEl.showModal();
@@ -1706,14 +1804,14 @@ document.addEventListener('keydown', e => {
         bg: '#0a1614', fg: '#e8f5f0', muted: '#5a8a80',
         accent: '#007782', accentRgb: '0,119,130', border: '#1a3a35',
         btnBg: '#007782', btnText: '#e8f5f0', btnBorder: '#007782',
-        btnHoverBg: 'transparent', btnHoverText: '#009aa8', btnHoverBorder: '#009aa8',
+        btnHoverBg: 'var(--bg)', btnHoverText: '#009aa8', btnHoverBorder: '#009aa8',
         inputFocus: '#009aa8', cardBg: 'rgba(0,119,130,0.06)', cardBorder: '#1a3a35'
       },
       light: {
         bg: '#f0f7f5', fg: '#1a2a28', muted: '#5a7a72',
         accent: '#007782', accentRgb: '0,119,130', border: '#c0d8d0',
         btnBg: '#007782', btnText: '#ffffff', btnBorder: '#007782',
-        btnHoverBg: 'transparent', btnHoverText: '#005f68', btnHoverBorder: '#005f68',
+        btnHoverBg: 'var(--bg)', btnHoverText: '#005f68', btnHoverBorder: '#005f68',
         inputFocus: '#007782', cardBg: 'rgba(0,119,130,0.04)', cardBorder: '#c0d8d0'
       }
     },
@@ -1722,14 +1820,14 @@ document.addEventListener('keydown', e => {
         bg: '#0a0a18', fg: '#e8e5f5', muted: '#8a7ab0',
         accent: '#673DE6', accentRgb: '103,61,230', border: '#1a1a3a',
         btnBg: '#673DE6', btnText: '#e8e5f5', btnBorder: '#673DE6',
-        btnHoverBg: 'transparent', btnHoverText: '#8566FF', btnHoverBorder: '#8566FF',
+        btnHoverBg: 'var(--bg)', btnHoverText: '#8566FF', btnHoverBorder: '#8566FF',
         inputFocus: '#8566FF', cardBg: 'rgba(103,61,230,0.06)', cardBorder: '#1a1a3a'
       },
       light: {
         bg: '#f5f0ff', fg: '#1a1a2a', muted: '#7a6a9a',
         accent: '#673DE6', accentRgb: '103,61,230', border: '#d0c0e8',
         btnBg: '#673DE6', btnText: '#ffffff', btnBorder: '#673DE6',
-        btnHoverBg: 'transparent', btnHoverText: '#5030C0', btnHoverBorder: '#5030C0',
+        btnHoverBg: 'var(--bg)', btnHoverText: '#5030C0', btnHoverBorder: '#5030C0',
         inputFocus: '#673DE6', cardBg: 'rgba(103,61,230,0.04)', cardBorder: '#d0c0e8'
       }
     },
@@ -1971,7 +2069,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Disable button
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = 'SENDING...';
+      window.setRollingText(submitBtn, 'SENDING...');
     }
 
     // Submit via fetch
@@ -2001,7 +2099,7 @@ document.addEventListener('DOMContentLoaded', function() {
           alert(errorMsg);
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'SEND ENQUIRY';
+            window.setRollingText(submitBtn, 'SEND ENQUIRY');
           }
         });
       }
@@ -2010,7 +2108,7 @@ document.addEventListener('DOMContentLoaded', function() {
       alert('Network error. Please try again.');
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'SEND ENQUIRY';
+        window.setRollingText(submitBtn, 'SEND ENQUIRY');
       }
     });
   });
