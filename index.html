@@ -1256,6 +1256,7 @@
     font: 700 13px var(--font-display); text-decoration: none; white-space: nowrap;
     transition: background 0.2s, color 0.2s;
   }
+  .nav-contact-icon { display: none; }
   .nav-contact:hover { background: var(--btn-hover-bg); color: var(--btn-hover-text); }
   .nav-contact:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
   @media (max-width: 900px) {
@@ -1263,10 +1264,11 @@
     nav .nav-pill { margin-right: auto; }
   }
   @media (max-width: 600px) {
-    nav { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
-    nav .nav-pill { grid-column: 1; grid-row: 2; justify-self: center; margin: 0; max-width: 100%; padding: 4px 6px; gap: 2px; }
-    nav .nav-contact { grid-column: 1; grid-row: 1; justify-self: end; }
-    #design-system-contact { scroll-margin-top: 148px; }
+    nav { display: flex; gap: 6px; }
+    nav .nav-pill { margin-right: auto; min-width: 0; padding: 4px 6px; gap: 2px; }
+    nav .nav-contact { width: 44px; height: 44px; padding: 0; flex-shrink: 0; }
+    .nav-contact-label { display: none; }
+    .nav-contact-icon { display: block; }
     nav .nav-links { gap: 0; }
     nav .nav-links a { display: flex; align-items: center; min-height: 44px; padding: 8px 6px; font-size: 11px; }
     nav .nav-links li:has(a[href="#contact"]) { display: none; }
@@ -1303,7 +1305,7 @@
       <i data-lucide="moon" class="icon-moon" style="width:16px;height:16px"></i>
     </button>
   </div>
-  <a class="nav-contact" href="#design-system-contact">Let’s talk</a>
+  <a class="nav-contact" href="#design-system-contact" aria-label="Let’s talk"><span class="nav-contact-label">Let’s talk</span><svg class="nav-contact-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
 </nav>
 
 <!-- HERO -->
