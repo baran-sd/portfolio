@@ -1263,8 +1263,10 @@
     nav .nav-pill { margin-right: auto; }
   }
   @media (max-width: 600px) {
-    nav { gap: 6px; }
-    nav .nav-pill { padding: 4px 6px; gap: 2px; }
+    nav { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    nav .nav-pill { grid-column: 1; grid-row: 2; justify-self: center; margin: 0; max-width: 100%; padding: 4px 6px; gap: 2px; }
+    nav .nav-contact { grid-column: 1; grid-row: 1; justify-self: end; }
+    #design-system-contact { scroll-margin-top: 148px; }
     nav .nav-links { gap: 0; }
     nav .nav-links a { display: flex; align-items: center; min-height: 44px; padding: 8px 6px; font-size: 11px; }
     nav .nav-links li:has(a[href="#contact"]) { display: none; }
