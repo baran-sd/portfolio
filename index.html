@@ -28,18 +28,36 @@
 <!-- Canonical --><link rel="canonical" href="https://portfolio-lyart-alpha-67.vercel.app">
 
 <!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-K7VEQ25M6Y"></script>
 <script>
+  // Persist owner/test traffic exclusion in this browser before loading either tag.
+  var portfolioAnalyticsExcluded = false;
+  var analyticsMode = new URLSearchParams(window.location.search).get('analytics');
+  try {
+    if (analyticsMode === 'off') localStorage.setItem('portfolio.analyticsExcluded', '1');
+    if (analyticsMode === 'on') localStorage.removeItem('portfolio.analyticsExcluded');
+    portfolioAnalyticsExcluded = localStorage.getItem('portfolio.analyticsExcluded') === '1';
+  } catch (error) {}
+  if (analyticsMode === 'off') portfolioAnalyticsExcluded = true;
+  window['ga-disable-G-K7VEQ25M6Y'] = portfolioAnalyticsExcluded;
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-K7VEQ25M6Y');
+  function gtag(){if (!portfolioAnalyticsExcluded) dataLayer.push(arguments);}
+  if (!portfolioAnalyticsExcluded) {
+    var gaTag = document.createElement('script');
+    gaTag.async = true;
+    gaTag.src = 'https://www.googletagmanager.com/gtag/js?id=G-K7VEQ25M6Y';
+    document.head.appendChild(gaTag);
+    gtag('js', new Date());
+    gtag('config', 'G-K7VEQ25M6Y');
+    var csTag = document.createElement('script');
+    csTag.defer = true;
+    csTag.src = 'https://t.contentsquare.net/uxa/db512b6e39166.js';
+    document.head.appendChild(csTag);
+  }
 </script>
 
 
 
 <!-- Contentsquare / Hotjar (Lite) tracking tag -->
-<script src="https://t.contentsquare.net/uxa/db512b6e39166.js" defer></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1282,8 +1300,8 @@
 
   <div class="project-list">
 
-    <div class="project-entry reveal reveal-delay-1" data-project="uefa-predictors">
-      <button class="project-item" type="button" aria-expanded="false" aria-controls="project-gallery-1" onclick="toggleProject(this.closest('.project-entry'))">
+    <div class="project-entry open reveal reveal-delay-1" data-project="uefa-predictors">
+      <button class="project-item" type="button" aria-expanded="true" aria-controls="project-gallery-1" onclick="toggleProject(this.closest('.project-entry'))">
         <span class="project-num">01</span>
         <span class="project-info">
           <span class="project-name">UEFA Predictors</span>
@@ -1292,15 +1310,15 @@
         <span class="project-tag">Product Design</span>
         <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="3" x2="8" y2="13"></line><line x1="3" y1="8" x2="13" y2="8"></line></svg></span>
       </button>
-      <div class="project-gallery" id="project-gallery-1" inert>
+      <div class="project-gallery" id="project-gallery-1">
         <div class="gallery-inner">
           <div class="gallery-track">
-            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA UCL Predictor"><img data-src="images/uefa/01.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA UCL Predictor"></button>
-            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Match Predictions"><img data-src="images/uefa/02.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA Match Predictions"></button>
-            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Score Input"><img data-src="images/uefa/03.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA Score Input"></button>
-            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Player Selection"><img data-src="images/uefa/04.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA Player Selection"></button>
-            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Dashboard"><img data-src="images/uefa/05.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA Dashboard"></button>
-            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Tournament Predictor"><img data-src="images/uefa-tournament/01.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA Tournament Predictor"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA UCL Predictor"><img src="images/uefa/01.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA UCL Predictor"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Match Predictions"><img src="images/uefa/02.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA Match Predictions"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Score Input"><img src="images/uefa/03.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA Score Input"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Player Selection"><img src="images/uefa/04.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA Player Selection"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Dashboard"><img src="images/uefa/05.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA Dashboard"></button>
+            <button class="gallery-slide" type="button" aria-label="Open full-size image: UEFA Tournament Predictor"><img src="images/uefa-tournament/01.webp" width="1920" height="1080" loading="lazy" decoding="async" alt="UEFA Tournament Predictor"></button>
           </div>
           <div class="gallery-nav">
             <button class="gallery-btn" type="button" aria-label="Previous image" onclick="scrollGallery(this, -1)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="10,3 5,8 10,13"></polyline></svg></button>
