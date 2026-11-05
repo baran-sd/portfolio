@@ -10,6 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="design-system-case.css">
+  <link rel="stylesheet" href="page-transitions.css">
+  <script src="page-transitions.js"></script>
+  <link rel="expect" href="#case-ready" blocking="render">
 </head>
 <body>
   <a class="skip-link" href="#case-content">Skip to case study</a>
@@ -92,6 +95,6 @@
   </main>
 
   <footer class="case-shell case-footer"><span>© 2026 Denis Trojan</span><span>Product design / Design systems</span></footer>
-  <script src="design-system-case.js"></script>
+  <script src="design-system-case.js" id="case-ready"></script>
 </body>
 </html>

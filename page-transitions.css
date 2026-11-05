@@ -1,0 +1,112 @@
+/* Keep the previous page visible until the destination is ready to paint.
+   Native navigation also preserves links, history, and scroll restoration. */
+@view-transition {
+  navigation: auto;
+}
+
+/* Returning to work restores the finished page before its first visible frame. */
+.portfolio-returning .project-gallery,
+.portfolio-returning .reveal {
+  transition: none !important;
+}
+.portfolio-returning .hero-name .word {
+  animation: none !important;
+  transform: none;
+}
+
+::view-transition-group(root) {
+  animation-duration: 420ms;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation: portfolio-page-out 280ms cubic-bezier(.4, 0, 1, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: portfolio-page-in 420ms cubic-bezier(.16, 1, .3, 1) both;
+}
+
+@keyframes portfolio-page-out {
+  to { opacity: 0; }
+}
+
+@keyframes portfolio-page-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* The image keeps its identity as the card becomes a case study.
+   The text overlaps the last part of the zoom, rather than waiting for it. */
+html[data-project-transition]::view-transition-group(project-artwork) {
+  animation-duration: 620ms;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+  z-index: 1;
+  overflow: clip;
+  border-radius: 12px;
+}
+
+html[data-project-transition]::view-transition-image-pair(project-artwork) {
+  isolation: isolate;
+}
+
+html[data-project-transition]::view-transition-old(project-artwork),
+html[data-project-transition]::view-transition-new(project-artwork) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: normal;
+}
+
+html[data-project-transition]::view-transition-old(project-artwork) {
+  animation: portfolio-page-out 180ms 320ms linear both;
+}
+
+html[data-project-transition]::view-transition-new(project-artwork) {
+  animation: portfolio-page-in 180ms 320ms linear both;
+}
+
+html[data-project-transition='open']::view-transition-old(root) {
+  animation-duration: 180ms;
+}
+
+html[data-project-transition='open']::view-transition-new(root) {
+  animation-duration: 280ms;
+  animation-delay: 360ms;
+}
+
+html[data-project-transition='close']::view-transition-group(project-artwork) {
+  animation-duration: 500ms;
+}
+
+html[data-project-transition='close']::view-transition-new(root) {
+  animation-duration: 300ms;
+}
+
+/* Keep the zoom destination in the first viewport on narrow screens. */
+@media (max-width: 1000px) {
+  .case-hero:has(.case-preview) {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: stretch;
+  }
+  .case-hero > .case-preview {
+    order: -1;
+    width: 100%;
+    margin: 0 0 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 100ms !important;
+    animation-delay: 0ms !important;
+  }
+}
