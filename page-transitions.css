@@ -87,21 +87,6 @@ html[data-project-transition='close']::view-transition-new(root) {
   animation-duration: 300ms;
 }
 
-/* Keep the zoom destination in the first viewport on narrow screens. */
-@media (max-width: 1000px) {
-  .case-hero:has(.case-preview) {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    align-items: stretch;
-  }
-  .case-hero > .case-preview {
-    order: -1;
-    width: 100%;
-    margin: 0 0 40px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(root),
   ::view-transition-old(root),

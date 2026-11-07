@@ -16,8 +16,8 @@ body.light {
   --bg: #f5f3ef;
   --fg: #1a1918;
   --muted: #5a5855;
-  --accent: #b07a52;
-  --accent-rgb: 176, 122, 82;
+  --accent: #8a5834;
+  --accent-rgb: 138, 88, 52;
   --border: #d8d5d0;
   --card-bg: rgba(0, 0, 0, .02);
   --btn-text: var(--bg);
@@ -347,8 +347,6 @@ button { font: inherit; }
   gap: 10px;
   justify-self: center;
   padding: 18px 20px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
 }
 
 .outcome-summary {
@@ -554,9 +552,13 @@ button { font: inherit; }
 .scale-section .system-flow p { font-size: 14px; }
 
 @media (max-width: 1000px) {
+  .case-nav { top: 16px; left: 24px; transform: none; width: calc(100% - 48px); }
+  .nav-actions { min-width: 0; max-width: calc(100% - 170px); }
+  .nav-mark { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .case-hero { padding: 104px 0 56px; }
   .hero-layout { grid-template-columns: 1fr; gap: 42px; }
   .outcome-card {
-    width: min(100%, 704px);
+    width: 100%;
     display: grid;
     grid-template-columns: minmax(0, 354fr) minmax(0, 334fr);
     gap: 16px;
@@ -572,17 +574,21 @@ button { font: inherit; }
   .outcome-timeline { gap: 5px; }
   .outcome-bar { height: 6px; }
   .outcome-bar-after::before { height: 6px; }
-  .case-preview { aspect-ratio: 16 / 8; }
+  .case-preview { aspect-ratio: 16 / 9; }
+  .case-preview img { object-fit: contain; }
   .section-grid { grid-template-columns: 180px minmax(0, 1fr); gap: 48px; }
   .configuration-list,
   .scale-section .system-flow { margin-left: 228px; }
 }
 
 @media (max-width: 600px) {
+  .case-nav { top: 12px; left: 12px; width: calc(100% - 24px); }
+  .case-hero { padding: 84px 0 48px; }
+  .hero-layout { gap: 24px; }
   .hero-copy h1 { max-width: 100%; font-size: clamp(42px, 12vw, 56px); overflow-wrap: anywhere; }
   .hero-copy p { font-size: 17px; }
   .outcome-card {
-    width: min(100%, 380px);
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -596,7 +602,7 @@ button { font: inherit; }
   .outcome-timeline { gap: 6px; }
   .outcome-bar { height: 8px; }
   .outcome-bar-after::before { height: 8px; }
-  .case-preview { margin-top: 40px; aspect-ratio: 4 / 3; border-radius: 10px; }
+  .case-preview { margin-top: 28px; aspect-ratio: 16 / 9; border-radius: 10px; }
   .section-grid { grid-template-columns: 1fr; gap: 28px; }
   .case-section h2 { font-size: clamp(36px, 10vw, 52px); }
   .section-intro { margin-bottom: 46px; }

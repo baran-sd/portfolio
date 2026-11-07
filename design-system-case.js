@@ -6,11 +6,11 @@
   const themes = {
     vinted: {
       dark: { bg: '#0a1614', fg: '#e8f5f0', muted: '#5a8a80', accent: '#007782', accentRgb: '0,119,130', border: '#1a3a35', cardBg: 'rgba(0,119,130,.06)', cardBorder: '#1a3a35', btnText: '#e8f5f0' },
-      light: { bg: '#f0f7f5', fg: '#1a2a28', muted: '#5a7a72', accent: '#007782', accentRgb: '0,119,130', border: '#c0d8d0', cardBg: 'rgba(0,119,130,.04)', cardBorder: '#c0d8d0', btnText: '#ffffff' }
+      light: { bg: '#f0f7f5', fg: '#1a2a28', muted: '#526e67', accent: '#007782', accentRgb: '0,119,130', border: '#c0d8d0', cardBg: 'rgba(0,119,130,.04)', cardBorder: '#c0d8d0', btnText: '#ffffff' }
     },
     hostinger: {
       dark: { bg: '#0a0a18', fg: '#e8e5f5', muted: '#8a7ab0', accent: '#673DE6', accentRgb: '103,61,230', border: '#1a1a3a', cardBg: 'rgba(103,61,230,.06)', cardBorder: '#1a1a3a', btnText: '#e8e5f5' },
-      light: { bg: '#f5f0ff', fg: '#1a1a2a', muted: '#7a6a9a', accent: '#673DE6', accentRgb: '103,61,230', border: '#d0c0e8', cardBg: 'rgba(103,61,230,.04)', cardBorder: '#d0c0e8', btnText: '#ffffff' }
+      light: { bg: '#f5f0ff', fg: '#1a1a2a', muted: '#705f91', accent: '#673DE6', accentRgb: '103,61,230', border: '#d0c0e8', cardBg: 'rgba(103,61,230,.04)', cardBorder: '#d0c0e8', btnText: '#ffffff' }
     },
     soro: {
       dark: { bg: '#0d0d12', fg: '#f0f0f5', muted: '#7a7a99', accent: '#5855FF', accentRgb: '88,85,255', border: '#1a1a2e', cardBg: 'rgba(88,85,255,.06)', cardBorder: '#1a1a2e', btnText: '#ffffff' },
