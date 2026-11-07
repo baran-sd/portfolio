@@ -1306,13 +1306,47 @@
     .theme-toggle { width: 44px; height: 44px; }
   }
 
-  /* Keep the navigation centered at every viewport width. */
+  /* Keep the navigation centered while the contact action stays at the edge. */
   nav { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; }
   nav .nav-pill { grid-column: 2; }
+  .nav-contact {
+    grid-column: 3;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 10px 22px;
+    border: 1px solid var(--btn-border);
+    border-radius: 100px;
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font: 700 13px var(--font-display);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .nav-contact:hover {
+    background: var(--btn-hover-bg);
+    color: var(--btn-hover-text);
+    border-color: var(--btn-hover-border);
+  }
+  .nav-contact:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
+  .nav-contact-icon { display: none; }
+  @media (max-width: 900px) {
+    nav { grid-template-columns: minmax(0, 1fr) auto; }
+    nav .nav-pill { grid-column: 1; justify-self: center; }
+    nav .nav-contact { grid-column: 2; }
+    nav .nav-links li:has(a[href="#contact"]) { display: none; }
+  }
   @media (max-width: 600px) {
-    nav .nav-pill { grid-column: 1 / -1; justify-self: stretch; width: 100%; min-width: 0; padding: 6px; gap: 4px; }
+    nav { grid-template-columns: minmax(0, 1fr) auto; gap: 6px; }
+    nav .nav-pill { grid-column: 1; justify-self: stretch; width: 100%; min-width: 0; padding: 6px; gap: 4px; }
     nav .nav-links { flex: 1; min-width: 0; gap: 0; justify-content: space-between; }
-    nav .nav-links a { padding: 8px 6px; font-size: 11px; }
+    nav .nav-links a { padding: 8px 4px; font-size: 11px; }
+    nav .nav-contact { grid-column: 2; width: 44px; height: 44px; padding: 0; }
+    .nav-contact-label { display: none; }
+    .nav-contact-icon { display: block; }
   }
   @media (min-width: 1900px) {
     main, footer { max-width: 1800px; margin-inline: auto; }
@@ -1348,6 +1382,7 @@
       <i data-lucide="moon" class="icon-moon" style="width:16px;height:16px"></i>
     </button>
   </div>
+  <a class="nav-contact" href="#design-system-contact" aria-label="Let’s talk"><span class="nav-contact-label">Let’s talk</span><svg class="nav-contact-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
 </nav>
 
 <!-- HERO -->
