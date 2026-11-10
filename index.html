@@ -1341,8 +1341,8 @@
   }
   @media (max-width: 600px) {
     nav { grid-template-columns: minmax(0, 1fr) auto; gap: 6px; }
-    nav .nav-pill { grid-column: 1; justify-self: stretch; width: 100%; min-width: 0; padding: 6px; gap: 4px; }
-    nav .nav-links { flex: 1; min-width: 0; gap: 0; justify-content: space-between; }
+    nav .nav-pill { grid-column: 1; justify-self: center; width: max-content; max-width: 100%; min-width: 0; padding: 6px; gap: 4px; }
+    nav .nav-links { flex: 0 1 auto; min-width: 0; gap: 2px; justify-content: flex-start; }
     nav .nav-links a { padding: 8px 4px; font-size: 11px; }
     nav .nav-contact { grid-column: 2; width: 44px; height: 44px; padding: 0; }
     .nav-contact-label { display: none; }
