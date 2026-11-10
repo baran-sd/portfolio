@@ -1334,19 +1334,20 @@
   .nav-contact:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
   .nav-contact-icon { display: none; }
   @media (max-width: 900px) {
-    nav { grid-template-columns: minmax(0, 1fr) auto; }
-    nav .nav-pill { grid-column: 1; justify-self: center; }
-    nav .nav-contact { grid-column: 2; }
     nav .nav-links li:has(a[href="#contact"]) { display: none; }
   }
   @media (max-width: 600px) {
-    nav { grid-template-columns: max-content auto; justify-content: center; gap: 6px; }
-    nav .nav-pill { grid-column: 1; justify-self: center; width: max-content; max-width: 100%; min-width: 0; padding: 6px; gap: 4px; }
-    nav .nav-links { flex: 0 1 auto; min-width: 0; gap: 2px; justify-content: flex-start; }
-    nav .nav-links a { padding: 8px 4px; font-size: 11px; }
-    nav .nav-contact { grid-column: 2; width: 44px; height: 44px; padding: 0; }
+    nav { grid-template-columns: minmax(0, 1fr) max-content minmax(0, 1fr); gap: 6px; }
+    nav .nav-pill { grid-column: 2; justify-self: center; padding: 6px; gap: 4px; }
+    nav .nav-links { gap: 4px; }
+    nav .nav-links a { padding: 8px; font-size: 12px; }
+    nav .nav-contact { grid-column: 3; width: 44px; height: 44px; padding: 0; }
     .nav-contact-label { display: none; }
     .nav-contact-icon { display: block; }
+  }
+  @media (max-width: 360px) {
+    nav .nav-links { gap: 2px; }
+    nav .nav-links a { padding-inline: 4px; font-size: 11px; }
   }
   @media (min-width: 1900px) {
     main, footer { max-width: 1800px; margin-inline: auto; }
