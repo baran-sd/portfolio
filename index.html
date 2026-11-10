@@ -1340,7 +1340,7 @@
     nav .nav-links li:has(a[href="#contact"]) { display: none; }
   }
   @media (max-width: 600px) {
-    nav { grid-template-columns: minmax(0, 1fr) auto; gap: 6px; }
+    nav { grid-template-columns: max-content auto; justify-content: center; gap: 6px; }
     nav .nav-pill { grid-column: 1; justify-self: center; width: max-content; max-width: 100%; min-width: 0; padding: 6px; gap: 4px; }
     nav .nav-links { flex: 0 1 auto; min-width: 0; gap: 2px; justify-content: flex-start; }
     nav .nav-links a { padding: 8px 4px; font-size: 11px; }
