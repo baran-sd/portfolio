@@ -4,6 +4,10 @@
   const company = params.get('company');
 
   const themes = {
+    surfshark: {
+      dark: { bg: '#09090b', fg: '#fafafa', muted: '#a1a1b5', accent: '#8b9aff', accentRgb: '139,154,255', border: '#2c2d3b', cardBg: 'rgba(139,154,255,.05)', cardBorder: '#2c2d3b', btnText: '#09090b' },
+      light: { bg: '#ffffff', fg: '#09090b', muted: '#55556b', accent: '#1b2ff5', accentRgb: '27,47,245', border: '#dcdde8', cardBg: 'rgba(27,47,245,.03)', cardBorder: '#dcdde8', btnText: '#ffffff' }
+    },
     vinted: {
       dark: { bg: '#0a1614', fg: '#e8f5f0', muted: '#5a8a80', accent: '#007782', accentRgb: '0,119,130', border: '#1a3a35', cardBg: 'rgba(0,119,130,.06)', cardBorder: '#1a3a35', btnText: '#e8f5f0' },
       light: { bg: '#f0f7f5', fg: '#1a2a28', muted: '#526e67', accent: '#007782', accentRgb: '0,119,130', border: '#c0d8d0', cardBg: 'rgba(0,119,130,.04)', cardBorder: '#c0d8d0', btnText: '#ffffff' }

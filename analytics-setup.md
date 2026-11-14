@@ -22,6 +22,7 @@ These examples are for links sent in a LinkedIn message. They keep `company` for
 
 - Vinted: https://portfolio-lyart-alpha-67.vercel.app/?company=vinted&utm_source=linkedin&utm_medium=message&utm_campaign=portfolio_outreach&utm_content=vinted
 - Hostinger: https://portfolio-lyart-alpha-67.vercel.app/?company=hostinger&utm_source=linkedin&utm_medium=message&utm_campaign=portfolio_outreach&utm_content=hostinger
+- Surfshark: https://portfolio-lyart-alpha-67.vercel.app/?company=surfshark&utm_source=linkedin&utm_medium=message&utm_campaign=portfolio_outreach&utm_content=surfshark
 - General LinkedIn: https://portfolio-lyart-alpha-67.vercel.app/?company=linkedin&utm_source=linkedin&utm_medium=message&utm_campaign=portfolio_outreach&utm_content=general
 
 When sharing by email, use `utm_source=email` and `utm_medium=email` instead. Set `utm_source` to the real channel, not the recipient company. Already shared links continue to work without UTM parameters.

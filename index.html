@@ -1904,10 +1904,26 @@ function scrollGallery(btn, dir) {
 <script src="lightbox-motion.js"></script>
 
 <script>
-// Theme restore — URL params ?theme=dark|light & ?company=vinted|hostinger
+// Company palette via ?company=; dark/light mode is restored from localStorage.
 (function() {
   // Company color palettes
   const THEMES = {
+    surfshark: {
+      dark: {
+        bg: '#09090b', fg: '#fafafa', muted: '#a1a1b5',
+        accent: '#8b9aff', accentRgb: '139,154,255', border: '#2c2d3b',
+        btnBg: '#1b2ff5', btnText: '#ffffff', btnBorder: '#1b2ff5',
+        btnHoverBg: 'var(--bg)', btnHoverText: '#a6b1ff', btnHoverBorder: '#a6b1ff',
+        inputFocus: '#8b9aff', cardBg: 'rgba(139,154,255,0.05)', cardBorder: '#2c2d3b'
+      },
+      light: {
+        bg: '#ffffff', fg: '#09090b', muted: '#55556b',
+        accent: '#1b2ff5', accentRgb: '27,47,245', border: '#dcdde8',
+        btnBg: '#1b2ff5', btnText: '#ffffff', btnBorder: '#1b2ff5',
+        btnHoverBg: 'var(--bg)', btnHoverText: '#1525c4', btnHoverBorder: '#1525c4',
+        inputFocus: '#1b2ff5', cardBg: 'rgba(27,47,245,0.03)', cardBorder: '#dcdde8'
+      }
+    },
     vinted: {
       dark: {
         bg: '#0a1614', fg: '#e8f5f0', muted: '#5a8a80',
